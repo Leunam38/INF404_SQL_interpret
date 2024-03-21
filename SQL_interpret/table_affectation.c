@@ -23,7 +23,6 @@ table_aff_t* ajout_table_aff(table_aff_t* tab_aff,table_t* table){
 
 table_t* search_table_aff(table_aff_t* tab_aff, char* nom_tab_aff){
     table_aff_t* tab_aff2=tab_aff;
-    printf("ockokodazkozd");
     while(tab_aff2!=NULL){
         printf("%s\n\n",tab_aff2->nom_de_table);
         if (strcmp(tab_aff->nom_de_table,nom_tab_aff)==0){

@@ -1,6 +1,2 @@
-SELECT nom
-FROM table
-WHERE prenom <= 06;
-SELECT nom
-FROM table
-WHERE prenom <= "loic";
+SELECT col1,col2
+FROM table;

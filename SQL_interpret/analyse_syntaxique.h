@@ -8,11 +8,12 @@
 
 #include "analyse_lexicale.h"
 #include "table_affectation.h"
+#include "table_donnes.h"
 
 void erreur();
-void rec_requete();
-void rec_seq_attribut();
-void rec_suite_seq_attribut();
+void rec_requete(table_aff_t* tab_aff);
+void rec_seq_attribut(cel_colonne_tete_t* col_tete);
+void rec_suite_seq_attribut(cel_colonne_tete_t* col_tete);
 void rec_condition();
 void rec_op();
 void rec_valeur();

@@ -16,7 +16,7 @@ typedef struct donnee_cel donnee_cel_t;
 //Structure pour une liste de ligne
 struct list_ligne{
     donnee_cel_t * tete; //Tete de la ligne actuelle
-    struct list_ligne *suiv; //La colonne suivante
+    struct list_ligne *suiv; //La ligne suivante
 };
 typedef struct list_ligne list_ligne_t;
 
@@ -35,7 +35,7 @@ struct table
     char* nom_table; //Nom de la table
     int nb_arg; //Nombre d'argument
     cel_colonne_tete_t * tete_col; //Vers la liste des colonnes
-    list_ligne_t *tete_ligne; //Tête de la liste de colonne qui constitue la table
+    list_ligne_t *tete_ligne; //Tête de la liste de lignes qui constitue la table
 };
 typedef struct table table_t;
 
