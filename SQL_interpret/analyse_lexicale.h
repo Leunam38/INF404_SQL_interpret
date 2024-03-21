@@ -48,6 +48,7 @@
       MOINS,
       PARO,
       PARF,
+      GUILLEMETS,
       ENTIER,
       CHAINE,
       FIN_SEQUENCE

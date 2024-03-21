@@ -242,6 +242,11 @@ void reconnaitre_lexeme() {
                         etat = E_FIN;
                         break;
 
+                     case '"':
+                        lexeme_en_cours.nature = GUILLEMETS;
+                        etat = E_FIN;
+                        break;
+
                      default:
                         printf("Erreur_Lexicale") ;
                         exit(0) ;
@@ -403,6 +408,7 @@ int est_symbole(char c)  {
       case '>':
       case '(':
       case ')':
+      case '"':
          return 1;
 
       default:
@@ -449,6 +455,7 @@ switch (nature) {
    case MOINS: return "MOINS" ;  
    case PARO: return "PARO" ; 
    case PARF: return "PARF";  
+   case GUILLEMETS: return "GUILLEMETS";
    case CHAINE: return "CHAINE";   
    case FIN_SEQUENCE: return "FIN_SEQUENCE" ;     
    default: return "ERREUR" ;            
