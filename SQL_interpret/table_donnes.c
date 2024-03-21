@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "table_donnes.h"
 #include "type_table_donnes.h"
+#include "table_affectation.h"
 
 //Initialisation d'une colonne d'entier
 cel_colonne_tete_t* init_colonne_tete(char* nom,int pos,Type_donnees type_don){
@@ -131,6 +132,14 @@ void afficher_table(table_t* table){
         afficher_donnee_cel(ligne->tete);
         ligne=ligne->suiv;
         }
+}
+
+
+void affichage_table_aff(table_aff_t* tab_aff){
+    printf("table d'affectation:");
+    while(tab_aff!=NULL){
+        afficher_table(tab_aff->la_table_cor);
+    }
 }
 
 // init_table

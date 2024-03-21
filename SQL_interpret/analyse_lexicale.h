@@ -49,7 +49,7 @@
       PARO,
       PARF,
       GUILLEMETS,
-      ENTIER,
+      NOMBRE,
       CHAINE,
       FIN_SEQUENCE
     } Nature_Lexeme ;

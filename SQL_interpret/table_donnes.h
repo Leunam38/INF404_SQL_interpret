@@ -2,7 +2,7 @@
 #define __TAB_DONNEE__ 
 
 #include "type_table_donnes.h"
-
+#include "table_affectation.h"
 
 cel_colonne_tete_t* init_colonne_tete(char* nom,int pos,Type_donnees type_don);
 
@@ -26,6 +26,10 @@ void afficher_donnee_cel(donnee_cel_t* cel_don);
 void afficher_colonne_tete(cel_colonne_tete_t* cel_col);
 
 void afficher_table(table_t* table);
+
+void affichage_table_aff(table_aff_t* tab_aff);
+
+
 // colonne_int_t* init_colonne_int(char* nom);
 // void lib_colonne_int (colonne_int_t* col);
 // void ajout_donnee_int (colonne_int_t* col,int nb);

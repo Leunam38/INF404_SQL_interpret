@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "table_donnes.h"
+#include "table_affectation.h"
 
 int main(int argc, char ** argv){
 
@@ -36,7 +37,16 @@ int main(int argc, char ** argv){
     list_suiv->tete=cel_tete;
     list_lig->suiv=list_suiv;
 
+    table_aff_t* tab_aff= init_table_aff();
+    tab_aff=ajout_table_aff(tab_aff,table);
+    
+     printf("%s\n\n",tab_aff->nom_de_table);
+    table_t* testtttttt=search_table_aff(tab_aff,"table princi");
+
+    printf("PPP:%s:\n",testtttttt->nom_table);
+    
     afficher_table(table);
+    
     // lib_donnee_cel(cel_tete);
 
 

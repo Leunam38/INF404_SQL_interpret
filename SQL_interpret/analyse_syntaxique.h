@@ -7,6 +7,7 @@
 #include <stdio.h> 
 
 #include "analyse_lexicale.h"
+#include "table_affectation.h"
 
 void erreur();
 void rec_requete();

@@ -4,6 +4,7 @@
 
 #include "analyse_lexicale.h"
 #include "analyse_syntaxique.h"
+#include "table_affectation.h"
 
 
 
@@ -130,7 +131,7 @@ void rec_valeur(){
             }
             avancer();
             break;
-        case ENTIER:
+        case NOMBRE:
             avancer();
             break;
         default:

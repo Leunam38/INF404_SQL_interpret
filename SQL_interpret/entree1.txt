@@ -1,6 +1,6 @@
 SELECT nom
 FROM table
-WHERE prenom <= "loic";
+WHERE prenom <= 06;
 SELECT nom
 FROM table
 WHERE prenom <= "loic";

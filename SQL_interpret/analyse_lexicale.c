@@ -129,7 +129,7 @@
    //		soit un separateur,  soit le 1er caractere d'un lexeme
 
 void reconnaitre_lexeme() {
-   typedef enum {E_INIT, E_ENTIER, E_CHAINE,E_FIN} Etat_Automate ;
+   typedef enum {E_INIT, E_NOMBRE, E_CHAINE,E_FIN} Etat_Automate ;
    Etat_Automate etat=E_INIT;
 
    // on commence par lire et ignorer les separateurs
@@ -187,12 +187,12 @@ void reconnaitre_lexeme() {
 
                //Si c'est un chiffre
                case CHIFFRE: 
-                  lexeme_en_cours.nature = ENTIER;
+                  lexeme_en_cours.nature = NOMBRE;
                   lexeme_en_cours.ligne = numero_ligne();
                   lexeme_en_cours.colonne = numero_colonne();
                   ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
                   lexeme_en_cours.val = caractere_courant() - '0';
-                  etat = E_ENTIER;
+                  etat = E_NOMBRE;
                   avancer_car() ;
                   break ;
 
@@ -273,12 +273,12 @@ void reconnaitre_lexeme() {
             } 
 		      break;
 
-         case E_ENTIER:  // reconnaissance d'un entier
+         case E_NOMBRE:  // reconnaissance d'un nombre
             switch(nature_caractere(caractere_courant())) {
                case CHIFFRE:
                   ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
                   lexeme_en_cours.val = lexeme_en_cours.val * 10 + caractere_courant() - '0';
-                  etat = E_ENTIER;
+                  etat = E_NOMBRE;
                   avancer_car ();
                   break ;
 
@@ -309,7 +309,7 @@ void reconnaitre_lexeme() {
          //    } 
          //    break;
 
-         case E_CHAINE:  // reconnaissance d'un entier
+         case E_CHAINE:  // reconnaissance d'un nombre
             switch(nature_caractere(caractere_courant())) {
                case TIRET:
                case LETTRE:
@@ -447,7 +447,7 @@ switch (nature) {
    // case AS: return "AS" ;                
    // case IF: return "IF" ;            
    // case EXIST: return "EXIST" ;
-   case ENTIER: return "ENTIER" ;
+   case NOMBRE: return "NOMBRE" ;
    case EGAL: return "EGAL" ;
    case INF: return "INF" ;
    case SUP: return "SUP" ;
@@ -478,7 +478,7 @@ void afficher_lex(Lexeme l) {
          printf("nature = %s", Nature_vers_Chaine(l.nature)) ;
          printf(", chaine = %s, ", l.chaine) ;
          switch(l.nature) {
-               case ENTIER:
+               case NOMBRE:
                      printf("valeur = %d", l.val);
                      break;
                default:
