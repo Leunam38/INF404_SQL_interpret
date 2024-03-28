@@ -11,31 +11,23 @@ int main(int argc, char ** argv){
     col_tete->suiv=init_colonne_tete("col2",1,STRING);    
     col_tete->suiv->suiv=init_colonne_tete("col3",2,ENTIER);
     // lib_cel_colonne_tete(col_tete);
+
     list_ligne_t* list_lig=init_list_ligne();
+    ajout_entier_cellule(list_lig,6969);
     list_ligne_t* list_suiv=init_list_ligne();
     table_t* table=init_table("table princi",3,col_tete,list_lig);
-
-    donnee_cel_t* cel_tete=init_donnee_cel(ENTIER);
-    cel_tete->val=2;
-    donnee_cel_t* cel_suiv=init_donnee_cel(STRING);
-    cel_suiv->string=strdup("blablabal"); 
-    cel_tete->suiv=cel_suiv;
-    cel_suiv=init_donnee_cel(ENTIER);
-    cel_tete->val=992;
-    cel_tete->suiv->suiv=cel_suiv;
-    list_lig->tete=cel_tete;
-
-    afficher_donnee_cel(cel_tete);
-    cel_tete=init_donnee_cel(ENTIER);
-    cel_tete->val=12;
-    cel_suiv=init_donnee_cel(STRING);
-    cel_suiv->string=strdup("heuuu"); 
-    cel_tete->suiv=cel_suiv;
-    cel_suiv=init_donnee_cel(ENTIER);
-    cel_tete->val=1;
-    cel_tete->suiv->suiv=cel_suiv;
-    list_suiv->tete=cel_tete;
     list_lig->suiv=list_suiv;
+    ajout_entier_cellule(list_lig,6969);
+    ajout_string_cellule(list_lig,"ARABE");
+    ajout_string_cellule(list_lig,"dld,zpd");
+
+    
+    ajout_string_cellule(list_suiv,"ARABE");
+    ajout_string_cellule(list_suiv,"ARABE");
+    ajout_string_cellule(list_suiv,"ARABE");
+    ajout_string_cellule(list_suiv,"ARABE");
+
+
 
     table_aff_t* tab_aff= init_table_aff();
     tab_aff=ajout_table_aff(tab_aff,table);
