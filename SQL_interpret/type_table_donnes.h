@@ -16,6 +16,7 @@ typedef struct donnee_cel donnee_cel_t;
 //Structure pour une liste de ligne
 struct list_ligne{
     donnee_cel_t * tete; //Tete de la ligne actuelle
+    donnee_cel_t * queue;
     struct list_ligne *suiv; //La ligne suivante
 };
 typedef struct list_ligne list_ligne_t;
