@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "table_donnes.h"
 #include "type_table_donnes.h"
-#include "table_affectation.h"
 
 //Initialisation d'une colonne d'entier
 cel_colonne_tete_t* init_colonne_tete(char* nom,int pos,Type_donnees type_don){
@@ -134,13 +133,96 @@ void afficher_table(table_t* table){
         }
 }
 
-
-void affichage_table_aff(table_aff_t* tab_aff){
-    printf("table d'affectation:");
-    while(tab_aff!=NULL){
-        afficher_table(tab_aff->la_table_cor);
-    }
+void ajout_entier_cellule(list_ligne_t* ll, int entier){
+    donnee_cel_t* celtemp = ll->tete;
+    if (celtemp == NULL){
+        ll->tete = init_donnee_cel(STRING);
+        ll->tete->val = entier;
+        ll->queue=ll->tete;
+        return;
+    } 
+    ll->queue->suiv = init_donnee_cel(ENTIER);
+    celtemp->suiv->val = entier;
+    ll->queue=ll->queue->suiv;
 }
+
+void ajout_string_cellule(list_ligne_t* ll, char* string){
+    donnee_cel_t* celtemp = ll->tete;
+    if (celtemp == NULL){
+        ll->tete = init_donnee_cel(STRING);
+        ll->tete->string = strdup(string);
+        ll->queue=ll->tete;
+        return;
+    }
+    ll->queue->suiv = init_donnee_cel(STRING);
+    ll->queue->suiv->string = strdup(string);
+    ll->queue=ll->queue->suiv;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+void creer_table(table_t* table, char* nomtable){
+    table = (table_t*)malloc(sizeof(table_t));
+    table->nom_table = nomtable;
+}
+
+
+
+void ajout_attribut(table_t* table,cel_colonne_tete_t* cel, char* nomattribut){
+    cel = (cel_colonne_tete_t*)malloc(sizeof(cel_colonne_tete_t));
+    while (table->tete_col != NULL){
+        table=table->suivant;
+    }
+    cel->nom_col=strdup(nomattribut);
+}
+
+
+
+
+void ajout_donnee(table_t* table, cel_colonne_tete_t* col, donnee_cel_t* donnee){
+    //ajoute la donnee a la table et attribut choisit
+    col->cellule = *donnee;
+    table->tete_col = col;
+}
+
+
+
+void definir_cellule(donnee_cel_t* donnee,char* chaine){
+    donnee = (donnee_cel_t*)malloc(sizeof(donnee_cel_t));
+    donnee->string=strdup(chaine);
+}
+
+void affichage_maison(table_t* table){
+    printf("nom_table:%s\n",table->nom_table);
+    printf("nom_attribut:%s\n",table->tete_col->nom_col);
+    printf("nom_cellule:%s\n",table->tete_col->cellule.string);
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // init_table
 // table_t* init_table(char* nom){
