@@ -316,6 +316,11 @@ void reconnaitre_lexeme() {
                   ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
                   avancer_car ();
                   break;
+                  
+               case CHIFFRE:
+                  ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
+                  avancer_car ();
+                  break;
 
                default:
                   etat = E_FIN;
