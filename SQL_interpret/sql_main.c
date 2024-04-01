@@ -5,39 +5,41 @@
 #include "table_affectation.h"
 
 int main(int argc, char ** argv){
-
-    cel_colonne_tete_t* col_tete=init_colonne_tete("col1",0,ENTIER);
-    
-    col_tete->suiv=init_colonne_tete("col2",1,STRING);    
-    col_tete->suiv->suiv=init_colonne_tete("col3",2,ENTIER);
-    // lib_cel_colonne_tete(col_tete);
-
     list_ligne_t* list_lig=init_list_ligne();
-    ajout_entier_cellule(list_lig,6969);
-    list_ligne_t* list_suiv=init_list_ligne();
-    table_t* table=init_table("table princi",3,col_tete,list_lig);
-    list_lig->suiv=list_suiv;
-    ajout_entier_cellule(list_lig,6969);
-    ajout_string_cellule(list_lig,"ARABE");
-    ajout_string_cellule(list_lig,"dld,zpd");
+    ajout_entier_cellule(list_lig,1);
+    // cel_colonne_tete_t* col_tete=init_colonne_tete("col1",0,ENTIER);
+    
+    // col_tete->suiv=init_colonne_tete("col2",1,STRING);    
+    // col_tete->suiv->suiv=init_colonne_tete("col3",2,ENTIER);
+    // // lib_cel_colonne_tete(col_tete);
+
+    // list_ligne_t* list_lig=init_list_ligne();
+    // ajout_entier_cellule(list_lig,69691111);
+    // ajout_string_cellule(list_lig,"dld,zpd");
+    // ajout_entier_cellule(list_lig,1);
+
+    // list_ligne_t* list_suiv=init_list_ligne();
+
+    // table_t* table=init_table("table princi",3,col_tete,list_lig);
+    // list_lig->suiv=list_suiv;
 
     
-    ajout_string_cellule(list_suiv,"ARABE");
-    ajout_string_cellule(list_suiv,"ARABE");
-    ajout_string_cellule(list_suiv,"ARABE");
-    ajout_string_cellule(list_suiv,"ARABE");
+    // ajout_entier_cellule(list_suiv,111);
+    // ajout_string_cellule(list_suiv,"ARABE");
+    // ajout_entier_cellule(list_suiv,111);
 
 
 
-    table_aff_t* tab_aff= init_table_aff();
-    tab_aff=ajout_table_aff(tab_aff,table);
+    // table_aff_t* tab_aff= init_table_aff();
+    // tab_aff=ajout_table_aff(tab_aff,table);
     
-     printf("%s\n\n",tab_aff->nom_de_table);
-    table_t* testtttttt=search_table_aff(tab_aff,"table princi");
+    //  printf("%s\n\n",tab_aff->nom_de_table);
+    // table_t* testtttttt=search_table_aff(tab_aff,"table princi");
 
-    printf("PPP:%s:\n",testtttttt->nom_table);
+    // printf("PPP:%s:\n",testtttttt->nom_table);
     
-    afficher_table(table);
+    // afficher_table(table);
+    // afficher_table_final(table);
     
     // lib_donnee_cel(cel_tete);
 
