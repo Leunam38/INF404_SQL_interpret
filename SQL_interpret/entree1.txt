@@ -1,2 +1,2 @@
-SELECT col1,col2
+SELECT col3,col2,col1
 FROM table;

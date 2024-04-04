@@ -5,8 +5,29 @@
 #include "table_affectation.h"
 
 int main(int argc, char ** argv){
+
+    //TEST AJOUTER_LISTE_LIGNE
     list_ligne_t* list_lig=init_list_ligne();
     ajout_entier_cellule(list_lig,1);
+    ajout_entier_cellule(list_lig,2);
+    ajout_string_cellule(list_lig,"bonjour");
+    list_ligne_t* list_lig2=init_list_ligne();
+    ajout_entier_cellule(list_lig2,88);
+    ajout_entier_cellule(list_lig2,99);
+    ajout_string_cellule(list_lig2,"au revoir");
+    cel_colonne_tete_t* attributs = init_colonne_tete("col1", 0, ENTIER);
+    attributs->suiv = init_colonne_tete("col2", 1, ENTIER);
+    attributs->suiv->suiv = init_colonne_tete("col3", 2, STRING);
+    table_t* table = init_table("table", 3, attributs);
+    afficher_table_final(table);
+    afficher_ligne_final(list_lig);
+    ajouter_liste_ligne(table, list_lig);
+    afficher_table_final(table);
+    afficher_ligne_final(list_lig2);
+    ajouter_liste_ligne(table, list_lig2);
+    afficher_table_final(table);
+
+
     // cel_colonne_tete_t* col_tete=init_colonne_tete("col1",0,ENTIER);
     
     // col_tete->suiv=init_colonne_tete("col2",1,STRING);    

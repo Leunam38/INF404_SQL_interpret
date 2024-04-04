@@ -74,12 +74,11 @@ void lib_list_ligne(list_ligne_t* list_lig){
     }
 }
 
-table_t* init_table(char* nom,int nb_arg,cel_colonne_tete_t *tete_col,list_ligne_t *tete_ligne ){
+table_t* init_table(char* nom,int nb_arg,cel_colonne_tete_t *tete_col){
     table_t *table = (table_t*)malloc(sizeof(table_t));
     table->nb_arg=nb_arg;
     table->nom_table=strdup(nom);//Récupère le nom et l'alloue en mémoire
     table->tete_col=tete_col;
-    table->tete_ligne=tete_ligne;
     return table;
 }
 
@@ -132,7 +131,7 @@ void afficher_donnee_cel(donnee_cel_t* cel_don){
 
 //Affiche brutement les données d'entier
 void afficher_table(table_t* table){
-    printf("nom de la table:%s,nombre argu:%ds\n",table->nom_table,table->nb_arg);
+    printf("nom de la table:%s,nombre argu:%d\n",table->nom_table,table->nb_arg);
     afficher_colonne_tete(table->tete_col);
     list_ligne_t *ligne=table->tete_ligne;
     while (ligne!=NULL){
@@ -257,9 +256,20 @@ void afficher_ligne_final(list_ligne_t* ligne){
     }
 }
 
+void ajouter_liste_ligne(table_t* table, list_ligne_t* ligne){
+    list_ligne_t* ligne_temp = table->tete_ligne;
+    if (ligne_temp == NULL){
+        table->tete_ligne = ligne;
+        table->queue_ligne = table->tete_ligne;
+        return;
+    } 
+    table->queue_ligne->suiv = ligne;
+    table->queue_ligne = table->queue_ligne->suiv;
+}
+
 
 void afficher_table_final(table_t* table){    
-    printf("nom de la table:%s,nombre argu:%ds\n",table->nom_table,table->nb_arg);
+    printf("nom de la table:%s,nombre argu:%d\n",table->nom_table,table->nb_arg);
     afficher_colonne_tete_final(table->tete_col);
     printf("\n");
     afficher_tiret_tete_final(table->tete_col);

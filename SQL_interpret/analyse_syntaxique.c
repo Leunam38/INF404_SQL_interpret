@@ -40,45 +40,60 @@ void rec_seq_attribut(cel_colonne_tete_t* attributs, int* nb_attributs){
 
 
 table_t* requete_select(table_t* relation, cel_colonne_tete_t* attributs, int nb_attributs){
-    list_ligne_t* debut_ligne_affiche = init_list_ligne();
-    // ajout_entier_cellule(debut_ligne_affiche, 69691111);
-    table_t* affichage = init_table("affichage", nb_attributs, attributs, debut_ligne_affiche);
-    // afficher_table_final(affichage);
+    table_t* affichage = init_table("affichage", nb_attributs, attributs);
+    afficher_colonne_tete_final(attributs);
+    //Convertir les attributs du select en tableau de  
     int positions[nb_attributs];
-    cel_colonne_tete_t* tempo = relation->tete_col;
-    for (int i = 0; i < nb_attributs; i++){ // test affichage tableau positions
+    cel_colonne_tete_t* attributs_temp = attributs;
+    for (int i = 0; i < nb_attributs; i++){
+        cel_colonne_tete_t* tempo = relation->tete_col;
+        while (strcmp(tempo->nom_col,attributs_temp->nom_col)!=0){
+            tempo = tempo->suiv;
+        }
         positions[i] = tempo->pos;
-        tempo = tempo->suiv;
-    }
-    for (int x = 0; x < nb_attributs; x++){ // test affichage tableau positions
-        printf("position: %d\n",positions[x]);
+        attributs_temp = attributs_temp->suiv;
     }
 
+    // //TEST AFFICHAGE TABLEAU POSITIONS
+    // for (int x = 0; x < nb_attributs; x++){ 
+    //     printf("position: %d\n",positions[x]);
+    // }
+    
+
     list_ligne_t* relation_liste_ligne = relation->tete_ligne;
-    afficher_ligne_final(relation_liste_ligne);
-    // while(relation_liste_ligne->suiv != NULL){
-        donnee_cel_t* relation_tete_ligne = relation_liste_ligne->tete;
+    while(relation_liste_ligne != NULL){
         
-        for (int i = 0; i < nb_attributs-1; i++){
+        list_ligne_t* ligne_affichage = init_list_ligne();
+        
+        for (int i = 0; i < nb_attributs; i++){
+            donnee_cel_t* relation_tete_ligne = relation_liste_ligne->tete;
             if (positions[i] > 0){
                 for (int j = 0; j < positions[i]; j++){
                     relation_tete_ligne = relation_tete_ligne->suiv;
                 }
             }
             if (relation_tete_ligne->type_don==ENTIER){
-                printf("\nVal: %d\n", relation_tete_ligne->val);
-                ajout_entier_cellule(debut_ligne_affiche, 69691111);
+                ajout_entier_cellule(ligne_affichage, relation_tete_ligne->val);
+                // printf("\nVal: %d", relation_tete_ligne->val);
              } 
              else{
-                printf("\nVal: %s\n", relation_tete_ligne->string);
-                ajout_string_cellule(debut_ligne_affiche, relation_tete_ligne->string);
+                ajout_string_cellule(ligne_affichage, relation_tete_ligne->string);
+                // printf("\nVal: %s", relation_tete_ligne->string);
             }
         }
-    //     list_ligne_t* nouvelle_ligne = init_list_ligne();
-    //     relation_liste_ligne->suiv = nouvelle_ligne;
-    //     relation_liste_ligne = relation_liste_ligne->suiv;
-    // }  
-    printf("coucoucououououoiu\n");
+        ajouter_liste_ligne(affichage, ligne_affichage);
+        relation_liste_ligne = relation_liste_ligne->suiv;
+    }  
+
+    //Ajout des type_don a colonne_tete attributs
+    cel_colonne_tete_t* attributs_temp2 = attributs;
+    donnee_cel_t* cel_temp2 = affichage->tete_ligne->tete;
+    while(attributs_temp2 != NULL){
+        attributs_temp2->type_don = cel_temp2->type_don;
+        attributs_temp2 = attributs_temp2->suiv;
+        cel_temp2 = cel_temp2->suiv;
+    }
+
     afficher_table_final(affichage);
     return affichage;
 }
@@ -97,9 +112,9 @@ void rec_requete(table_aff_t* table_aff){
    attributs=attributs->suiv;
    free(temp->nom_col);
    free(temp);
-   printf("les attributs de la nouvelle table_dans requete:\n");
-   afficher_colonne_tete_final(attributs);
-   printf("\nNombre d'attributs_dans requete: %d \n", nb_attributs);
+//    printf("Les attributs de la nouvelle table dans requete:\n");
+//    afficher_colonne_tete_final(attributs);
+//    printf("\nNombre d'attributs_dans requete: %d \n", nb_attributs);
 
    LC=lexeme_courant();
    if (LC.nature!=FROM){
@@ -111,7 +126,7 @@ void rec_requete(table_aff_t* table_aff){
       erreur();
    }
    table_t* relation = search_table_aff(table_aff, LC.chaine);
-   printf("Table trouvé dans requete: ");
+   printf("Table trouvé dans requete: \n");
    afficher_table_final(relation);
    avancer();
    LC=lexeme_courant();
@@ -212,18 +227,19 @@ void analyser(char *fichier) {
     col_tete->suiv=init_colonne_tete("col2",1,STRING);    
     col_tete->suiv->suiv=init_colonne_tete("col3",2,ENTIER);
 
+    
+    
+    table_t* table=init_table("table",3,col_tete);
     list_ligne_t* list_lig=init_list_ligne();
     list_ligne_t* list_suiv=init_list_ligne();
-    table_t* table=init_table("table",3,col_tete,list_lig);
-    list_lig->suiv=list_suiv;
     ajout_entier_cellule(list_lig,69691111);
     ajout_string_cellule(list_lig,"dld,zpd");
     ajout_entier_cellule(list_lig,1);
-
-    
     ajout_entier_cellule(list_suiv,111);
     ajout_string_cellule(list_suiv,"ARABE");
-    ajout_entier_cellule(list_suiv,111);
+    ajout_entier_cellule(list_suiv,112);
+    ajouter_liste_ligne(table, list_lig);
+    ajouter_liste_ligne(table, list_suiv);
 
    table_aff_t* tab_aff= init_table_aff();
    tab_aff=ajout_table_aff(tab_aff,table);

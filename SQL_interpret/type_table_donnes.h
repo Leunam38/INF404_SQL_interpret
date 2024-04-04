@@ -37,6 +37,7 @@ struct table
     int nb_arg; //Nombre d'argument
     cel_colonne_tete_t * tete_col; //Vers la liste des colonnes
     list_ligne_t *tete_ligne; //Tête de la liste de lignes qui constitue la table
+    list_ligne_t *queue_ligne; //Queue de la liste de lignes qui constitue la table
 };
 typedef struct table table_t;
 
