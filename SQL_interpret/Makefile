@@ -14,7 +14,7 @@ test_lexeme.o: analyse_lexicale.h
 
 table_affectation.o: type_table_donnes.h
 
-test_syntaxique.o: analyse_lexicale.h analyse_syntaxique.h 
+test_syntaxique.o: analyse_lexicale.h analyse_syntaxique.h  table_affectation.h
 
 analyse_lexicale.o: lecture_caracteres.h
 

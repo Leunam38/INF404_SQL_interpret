@@ -41,7 +41,6 @@ void rec_seq_attribut(cel_colonne_tete_t* attributs, int* nb_attributs){
 
 table_t* requete_select(table_t* relation, cel_colonne_tete_t* attributs, int nb_attributs){
     table_t* affichage = init_table("affichage", nb_attributs, attributs);
-    afficher_colonne_tete_final(attributs);
     //Convertir les attributs du select en tableau de  
     int positions[nb_attributs];
     cel_colonne_tete_t* attributs_temp = attributs;
@@ -98,8 +97,7 @@ table_t* requete_select(table_t* relation, cel_colonne_tete_t* attributs, int nb
     return affichage;
 }
 
-void rec_requete(table_aff_t* table_aff){
-
+void rec_deb_select(table_aff_t* table_aff){
     Lexeme LC=lexeme_courant();
     if (LC.nature!=SELECT){
       erreur();
@@ -150,6 +148,221 @@ void rec_requete(table_aff_t* table_aff){
    }
    
    requete_select(relation, attributs, nb_attributs);
+}
+
+
+void rec_values(list_ligne_t* ligne,cel_colonne_tete_t* cel_col){
+    Lexeme LC=lexeme_courant();
+    
+    if (LC.nature==GUILLEMETS){
+        avancer();
+        if (cel_col->type_don!=STRING){
+            printf("Ajout de donnée illégale\n");
+            erreur();
+        }
+        LC=lexeme_courant();
+        if (LC.nature!=VAR){
+            erreur();
+        }
+        ajout_string_cellule(ligne,LC.chaine);
+        avancer();
+        LC=lexeme_courant();
+        if (LC.nature!=GUILLEMETS){
+            erreur();
+        }
+        avancer();
+    }
+    else if (LC.nature==NOMBRE){   
+        if (cel_col->type_don!=ENTIER){
+            printf("Ajout de donnée illégale\n");
+            erreur();
+        }
+        ajout_entier_cellule(ligne,LC.val);
+        avancer();
+    }
+    else {
+        erreur();
+    }
+}
+
+cel_colonne_tete_t* rec_seq_suite_values(list_ligne_t* ligne,cel_colonne_tete_t* cel_col){
+    Lexeme LC=lexeme_courant();
+    
+    if (LC.nature==VIRGULE){
+        avancer();
+        rec_values(ligne,cel_col);
+        if (cel_col->suiv!=NULL){
+            return rec_seq_suite_values(ligne,cel_col->suiv);
+        }
+        return cel_col->suiv;
+    }
+    return cel_col;
+}
+
+void Rec_seq_values(table_t* table){
+    list_ligne_t* ligne=init_list_ligne();
+    cel_colonne_tete_t* cel_col;
+    rec_values(ligne,table->tete_col);
+    if (table->tete_col->suiv!=NULL){
+        cel_col=rec_seq_suite_values(ligne,table->tete_col->suiv);
+    }
+    if (cel_col!=NULL){
+        printf("Il manque des données à rajouter dans l'insert\n");
+        erreur();
+    }
+    ajouter_liste_ligne(table,ligne);
+}
+
+
+void debut_insert(table_aff_t* table_aff){
+    Lexeme LC=lexeme_courant();
+    if (LC.nature!=INSERT){
+      erreur();
+    }
+    avancer();
+    LC=lexeme_courant();
+    if (LC.nature!=INTO){
+        erreur();
+    }
+    avancer();
+    LC=lexeme_courant();
+    if (LC.nature!=VAR){
+        erreur();
+    }
+    avancer();
+    table_t* table = search_table_aff(table_aff, LC.chaine);
+    LC=lexeme_courant();
+    if (LC.nature!=VALUES){
+        erreur();
+    }
+    avancer();
+    LC=lexeme_courant();
+    if (LC.nature!=PARO){
+        erreur();
+    }
+    avancer();
+    Rec_seq_values(table);
+    
+    LC=lexeme_courant();
+    if (LC.nature!=PARF){
+        erreur();
+    }
+    avancer();
+    LC=lexeme_courant();
+    if (LC.nature!=SEPINST){
+        erreur();
+    }
+    avancer();
+    afficher_table_final(table);
+}
+
+
+
+void rec_create(table_aff_t* table_aff){
+    char nomtable[100];
+    int n=0;
+    cel_colonne_tete_t* colonnes=(cel_colonne_tete_t*)malloc(sizeof(cel_colonne_tete_t));
+    Lexeme LC=lexeme_courant();
+    if (LC.nature!=CREATE){
+      erreur();
+    }
+    avancer();
+    LC=lexeme_courant();
+    if (LC.nature!=TABLE){
+        erreur();
+    }
+    avancer();
+    LC=lexeme_courant();
+    if (LC.nature!=VAR){
+        erreur();
+    }
+    strcpy(nomtable,LC.chaine);
+    avancer();
+    LC=lexeme_courant();
+    if (LC.nature!=PARO){
+        erreur();
+    }
+    avancer();
+
+    rec_seq_creation_attribut(colonnes,&n);
+    
+    LC=lexeme_courant();
+    if (LC.nature!=PARF){
+        erreur();
+    }
+    avancer();
+
+    LC=lexeme_courant();
+    if (LC.nature!=SEPINST){
+        erreur();
+    }
+    avancer();
+    printf("arbre %d\n",n);
+    table_t* table = init_table(nomtable,n,colonnes);
+    ajout_table_aff(table_aff,table);
+    afficher_table_aff(table_aff);
+
+}
+
+void rec_seq_creation_attribut(cel_colonne_tete_t* colonnes, int* n){
+    rec_creation_attribut(colonnes,n);
+    rec_seq_suite_cree_attribut(colonnes,n);
+}
+
+void rec_creation_attribut(cel_colonne_tete_t* colonnes,int* n){
+    Lexeme LC=lexeme_courant();
+    if (LC.nature!=VAR){
+        erreur();
+    }
+    colonnes->pos=*n;
+    colonnes->nom_col=strdup(LC.chaine);
+    *n=*n+1;
+    avancer();
+    rec_type(colonnes);
+}
+
+void rec_type(cel_colonne_tete_t* colonnes){
+    Lexeme LC=lexeme_courant();
+    if ((LC.nature!=TEXT) && (LC.nature!=INTEGER)){
+        erreur();
+    }
+    if (LC.nature==TEXT){
+        colonnes->type_don=STRING;
+    }
+    else if (LC.nature==INTEGER) {
+        colonnes->type_don=ENTIER;
+    }
+    avancer();
+}
+
+void rec_seq_suite_cree_attribut(cel_colonne_tete_t* colonnes,int* n){
+    Lexeme LC=lexeme_courant();
+    if (LC.nature==VIRGULE){    
+        cel_colonne_tete_t* cel_suiv=(cel_colonne_tete_t*)malloc(sizeof(cel_colonne_tete_t));
+        colonnes->suiv=cel_suiv;
+        avancer();
+        rec_creation_attribut(cel_suiv,n);
+        rec_seq_suite_cree_attribut(cel_suiv,n);
+    }
+}
+
+
+
+void rec_requete(table_aff_t* table_aff){
+    Lexeme LC=lexeme_courant();
+    switch(LC.nature){
+        case SELECT :
+            rec_deb_select(table_aff);
+            break;
+        case CREATE :
+            rec_create(table_aff);
+            break;
+        case INSERT :
+            debut_insert(table_aff);
+            break;
+        default:
+        break;
+    }   
 }
 
 void rec_condition(){
@@ -242,7 +455,7 @@ void analyser(char *fichier) {
     ajouter_liste_ligne(table, list_suiv);
 
    table_aff_t* tab_aff= init_table_aff();
-   tab_aff=ajout_table_aff(tab_aff,table);
+   ajout_table_aff(tab_aff,table);
    demarrer(fichier);
    while (! fin_de_sequence()){
 

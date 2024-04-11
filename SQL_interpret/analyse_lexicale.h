@@ -27,13 +27,14 @@
 
    typedef enum { 
       CREATE,
+      TABLE,
+      TEXT,
+      INTEGER,
       VAR, //Variable
       SEPINST,
-      TABLE,
       SELECT,
       FROM,
       WHERE,
-      // DROP,
       // IF,
       // EXIST,
       DISTINCT,
@@ -51,6 +52,9 @@
       GUILLEMETS,
       NOMBRE,
       CHAINE,
+      INSERT,
+      INTO,
+      VALUES,
       FIN_SEQUENCE
     } Nature_Lexeme ;
 

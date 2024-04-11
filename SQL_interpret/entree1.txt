@@ -1,2 +1,4 @@
 SELECT col3,col2,col1
 FROM table;
+SELECT col3,col1
+FROM table;

@@ -167,6 +167,18 @@ void ajout_string_cellule(list_ligne_t* ll, char* string){
 }
 
 
+void ajouter_liste_ligne(table_t* table, list_ligne_t* ligne){
+    list_ligne_t* ligne_temp = table->tete_ligne;
+    if (ligne_temp == NULL){
+        table->tete_ligne = ligne;
+        table->queue_ligne = table->tete_ligne;
+        return;
+    } 
+    table->queue_ligne->suiv = ligne;
+    table->queue_ligne = table->queue_ligne->suiv;
+}
+
+
 void afficher_colonne_tete_final(cel_colonne_tete_t* cel_col){
     while (cel_col!=NULL){
         int taille_nom=strlen(cel_col->nom_col);
@@ -254,17 +266,6 @@ void afficher_ligne_final(list_ligne_t* ligne){
         printf("\n");
         ligne=ligne->suiv;
     }
-}
-
-void ajouter_liste_ligne(table_t* table, list_ligne_t* ligne){
-    list_ligne_t* ligne_temp = table->tete_ligne;
-    if (ligne_temp == NULL){
-        table->tete_ligne = ligne;
-        table->queue_ligne = table->tete_ligne;
-        return;
-    } 
-    table->queue_ligne->suiv = ligne;
-    table->queue_ligne = table->queue_ligne->suiv;
 }
 
 

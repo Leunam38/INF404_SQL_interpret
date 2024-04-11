@@ -1,0 +1,13 @@
+CREATE TABLE ploooo (
+    popo1 INTEGER,
+    popo2 TEXT,
+    popo3 TEXT,
+    popo4 INTEGER
+);
+CREATE TABLE Batiments (
+    hmmm_bat INTEGER,
+    bleu_bat TEXT
+);
+
+SELECT col3,col1
+FROM table;

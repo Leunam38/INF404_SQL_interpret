@@ -73,14 +73,24 @@
    /* --------------------------------------------------------------------- */
 
    void tranfo_chaine_nature() {
-      // if (strcmp(lexeme_en_cours.chaine,"CREATE")==0 || strcmp(lexeme_en_cours.chaine,"create")==0 ){
-      //    lexeme_en_cours.nature=CREATE;
-      //    return;
-      // }
-      // if (strcmp(lexeme_en_cours.chaine,"TABLE")==0 || strcmp(lexeme_en_cours.chaine,"table")==0){
-      //    lexeme_en_cours.nature=TABLE;
-      //    return;
-      // }
+      if (strcmp(lexeme_en_cours.chaine,"CREATE")==0 || strcmp(lexeme_en_cours.chaine,"create")==0 ){
+         lexeme_en_cours.nature=CREATE;
+         return;
+      }
+      if (strcmp(lexeme_en_cours.chaine,"TABLE")==0){
+         lexeme_en_cours.nature=TABLE;
+         return;
+      }
+      
+      if (strcmp(lexeme_en_cours.chaine,"INTEGER")==0 || strcmp(lexeme_en_cours.chaine,"integer")==0){
+         lexeme_en_cours.nature=INTEGER;
+         return;
+      }
+      if (strcmp(lexeme_en_cours.chaine,"TEXT")==0 || strcmp(lexeme_en_cours.chaine,"text")==0){
+         lexeme_en_cours.nature=TEXT;
+         return;
+      }
+
       if (strcmp(lexeme_en_cours.chaine,"SELECT")==0 || strcmp(lexeme_en_cours.chaine,"select")==0){
          lexeme_en_cours.nature=SELECT;
          return;
@@ -93,10 +103,6 @@
          lexeme_en_cours.nature=WHERE;
          return;
       }
-      // if (strcmp(lexeme_en_cours.chaine,"DROP")==0 || strcmp(lexeme_en_cours.chaine,"drop")==0){
-      //    lexeme_en_cours.nature=DROP;
-      //    return;
-      // }
       // if (strcmp(lexeme_en_cours.chaine,"IF")==0 || strcmp(lexeme_en_cours.chaine,"if")==0){
       //    lexeme_en_cours.nature=IF;
       //    return;
@@ -113,7 +119,20 @@
          lexeme_en_cours.nature=AS;
          return;
       }
-
+      
+      if (strcmp(lexeme_en_cours.chaine,"INSERT")==0 || strcmp(lexeme_en_cours.chaine,"insert")==0){
+         lexeme_en_cours.nature=INSERT;
+         return;
+      }
+      if (strcmp(lexeme_en_cours.chaine,"INTO")==0 || strcmp(lexeme_en_cours.chaine,"into")==0){
+         lexeme_en_cours.nature=INTO;
+         return;
+      }
+      if (strcmp(lexeme_en_cours.chaine,"VALUES")==0 || strcmp(lexeme_en_cours.chaine,"values")==0){
+         lexeme_en_cours.nature=VALUES;
+         return;
+      }
+      
       lexeme_en_cours.nature=VAR;
       return;
    }
@@ -435,17 +454,19 @@ int est_lettre(char c ) {
 
 // renvoie la chaine de caracteres correspondant a la nature du lexeme
 char *Nature_vers_Chaine (Nature_Lexeme nature) {
-switch (nature) {          
-   // case CREATE: return "CREATE" ;              
+switch (nature) {  
+   case CREATE: return "CREATE" ;   
+   case TABLE: return "TABLE" ;
+   case TEXT: return "TEXT" ;
+   case INTEGER: return "INTEGER" ;  
+
    case VAR: return "VAR" ;            
    case SEPINST: return "SEPINST" ; //Fin ; 
    case VIRGULE: return "VIRGULE" ; 
    case POINT: return "POINT" ;    
-   case AS: return "AS" ;          
-   // case TABLE: return "TABLE" ;            
+   case AS: return "AS" ;                  
    case SELECT: return "SELECT" ;            
-   case FROM: return "FROM" ;            
-   // case DROP: return "DROP" ;            
+   case FROM: return "FROM" ;                
    case DISTINCT: return "DISTINCT" ;        
    case WHERE: return "WHERE" ;        
    case ETOILE: return "ETOILE" ;              
@@ -462,6 +483,9 @@ switch (nature) {
    case PARF: return "PARF";  
    case GUILLEMETS: return "GUILLEMETS";
    case CHAINE: return "CHAINE";   
+   case INSERT: return "INSERT";
+   case INTO: return "INTO";   
+   case VALUES: return "VALUES" ;   
    case FIN_SEQUENCE: return "FIN_SEQUENCE" ;     
    default: return "ERREUR" ;            
 } ;
