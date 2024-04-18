@@ -1,7 +1,6 @@
 #ifndef __ANA_SYN__
 #define __ANA_SYN__
 
-	@@ -10,35 +9,17 @@
 #include "table_affectation.h"
 #include "table_donnes.h"
 
