@@ -3,8 +3,12 @@
 
 #include "type_table_donnes.h"
 #include "table_affectation.h"
+#include "type_ast.h"
+#include "ast_construction.h"
+#include "ast_parcours.h"
 
-cel_colonne_tete_t* init_colonne_tete(char* nom,int pos,Type_donnees type_don);
+cel_colonne_tete_t* init_colonne_tete();
+void remplissage_colonne_tete(cel_colonne_tete_t* cel_col, char* nom,int pos,Type_donnees type_don);
 
 void lib_cel_colonne_tete (cel_colonne_tete_t* cel_col);
 
@@ -15,7 +19,12 @@ void lib_donnee_cel(donnee_cel_t* cel_don);
 list_ligne_t* init_list_ligne(void);
 
 void lib_list_ligne(list_ligne_t* list_lig);
-table_t* init_table(char* nom,int nb_arg,cel_colonne_tete_t *tete_col);
+	
+    
+affectation_cel_t* init_affectation_cel();
+
+table_t* init_table();
+void remplissage_table(table_t* table, char* nom,int nb_arg,cel_colonne_tete_t *tete_col);    
 
 void lib_table(table_t* table);
 

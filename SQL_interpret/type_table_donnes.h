@@ -1,8 +1,12 @@
 #ifndef __TYPE_TAB__
 #define __TYPE_TAB__ 
 
+#include "type_ast.h"
+#include "ast_construction.h"
+#include "ast_parcours.h"
+
 //Type énuméré pour savoir quel type de donnée on stock dans notre colonne
-typedef enum {ENTIER,DATE,STRING,RIEN} Type_donnees ;
+typedef enum {ENTIER,STRING,RIEN} Type_donnees ;
 
 struct donnee_cel {
     Type_donnees type_don; //Le type de la cellule actuelle
@@ -35,11 +39,20 @@ struct table
 {   
     char* nom_table; //Nom de la table
     int nb_arg; //Nombre d'argument
+    char* pk;
     cel_colonne_tete_t * tete_col; //Vers la liste des colonnes
     list_ligne_t *tete_ligne; //Tête de la liste de lignes qui constitue la table
     list_ligne_t *queue_ligne; //Queue de la liste de lignes qui constitue la table
 };
 typedef struct table table_t;
+
+struct affectation_cel {
+    Ast arbre; //Arbre de calcul actuel
+    char* chaine_aff;
+    int num_att_aff;
+    struct affectation_cel *suiv; //La donnée suivante de la ligne
+};
+typedef struct affectation_cel affectation_cel_t;
 
 
 #endif

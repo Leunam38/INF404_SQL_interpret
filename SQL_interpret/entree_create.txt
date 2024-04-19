@@ -2,7 +2,8 @@ CREATE TABLE ploooo (
     popo1 INTEGER,
     popo2 TEXT,
     popo3 TEXT,
-    popo4 INTEGER
+    popo4 INTEGER,
+    CONSTRAINT pkey_1 PRIMARY KEY (popo1)
 );
 CREATE TABLE Batiments (
     hmmm_bat INTEGER,

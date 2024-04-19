@@ -30,13 +30,14 @@
       TABLE,
       TEXT,
       INTEGER,
+      CONSTRAINT,
+      PRIMARY,
+      KEY,
       VAR, //Variable
       SEPINST,
       SELECT,
       FROM,
       WHERE,
-      // IF,
-      // EXIST,
       DISTINCT,
       AS,
       VIRGULE,
@@ -44,6 +45,9 @@
       ETOILE,
       SUP,
       INF,
+      INFEGAL,
+      SUPEGAL,
+      DIFF,
       EGAL,
       PLUS,
       MOINS,
@@ -55,6 +59,8 @@
       INSERT,
       INTO,
       VALUES,
+      UPDATE,
+      SET,
       FIN_SEQUENCE
     } Nature_Lexeme ;
 

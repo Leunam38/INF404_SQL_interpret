@@ -81,7 +81,6 @@
          lexeme_en_cours.nature=TABLE;
          return;
       }
-      
       if (strcmp(lexeme_en_cours.chaine,"INTEGER")==0 || strcmp(lexeme_en_cours.chaine,"integer")==0){
          lexeme_en_cours.nature=INTEGER;
          return;
@@ -90,7 +89,19 @@
          lexeme_en_cours.nature=TEXT;
          return;
       }
-
+      if (strcmp(lexeme_en_cours.chaine,"CONSTRAINT")==0 || strcmp(lexeme_en_cours.chaine,"constraint")==0){
+         lexeme_en_cours.nature=CONSTRAINT;
+         return;
+      }
+      if (strcmp(lexeme_en_cours.chaine,"PRIMARY")==0 || strcmp(lexeme_en_cours.chaine,"primary")==0){
+         lexeme_en_cours.nature=PRIMARY;
+         return;
+      }
+      if (strcmp(lexeme_en_cours.chaine,"KEY")==0 || strcmp(lexeme_en_cours.chaine,"key")==0){
+         lexeme_en_cours.nature=KEY;
+         return;
+      }
+      
       if (strcmp(lexeme_en_cours.chaine,"SELECT")==0 || strcmp(lexeme_en_cours.chaine,"select")==0){
          lexeme_en_cours.nature=SELECT;
          return;
@@ -132,6 +143,15 @@
          lexeme_en_cours.nature=VALUES;
          return;
       }
+      if (strcmp(lexeme_en_cours.chaine,"UPDATE")==0 || strcmp(lexeme_en_cours.chaine,"update")==0){
+         lexeme_en_cours.nature=UPDATE;
+         return;
+      }
+      if (strcmp(lexeme_en_cours.chaine,"SET")==0 || strcmp(lexeme_en_cours.chaine,"set")==0){
+         lexeme_en_cours.nature=SET;
+         return;
+      }
+      
       
       lexeme_en_cours.nature=VAR;
       return;
@@ -148,7 +168,7 @@
    //		soit un separateur,  soit le 1er caractere d'un lexeme
 
 void reconnaitre_lexeme() {
-   typedef enum {E_INIT, E_NOMBRE, E_CHAINE,E_FIN} Etat_Automate ;
+   typedef enum {E_INIT, E_NOMBRE, E_CHAINE, E_SUP, E_INF,E_FIN} Etat_Automate ;
    Etat_Automate etat=E_INIT;
 
    // on commence par lire et ignorer les separateurs
@@ -238,16 +258,27 @@ void reconnaitre_lexeme() {
 
                      case '<':
                         lexeme_en_cours.nature = INF;
-                        etat = E_FIN;
+                        etat = E_INF;
                         break;
                         
                      case '>':
                         lexeme_en_cours.nature = SUP;
-                        etat = E_FIN;
+                        etat = E_SUP;
                         break;
 
                      case '=':
                         lexeme_en_cours.nature = EGAL;
+                        etat = E_FIN;
+                        break;
+                        
+                     case '!':
+                        avancer_car() ;
+                        if (caractere_courant()!='='){
+                           printf("Erreur_Lexicale") ;
+                           exit(0) ;
+                        }
+                        ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
+                        lexeme_en_cours.nature = DIFF;
                         etat = E_FIN;
                         break;
 
@@ -292,6 +323,24 @@ void reconnaitre_lexeme() {
             } 
 		      break;
 
+         case E_INF:  // reconnaissance d'un nombre
+            if (caractere_courant()=='='){
+               lexeme_en_cours.nature = INFEGAL;
+               ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
+               avancer_car() ;
+            }
+            etat = E_FIN;
+            break;
+            
+         case E_SUP:  // reconnaissance d'un nombre
+            if (caractere_courant()=='='){
+               lexeme_en_cours.nature = SUPEGAL;
+               ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
+               avancer_car() ;
+            }
+            etat = E_FIN;
+            break;
+
          case E_NOMBRE:  // reconnaissance d'un nombre
             switch(nature_caractere(caractere_courant())) {
                case CHIFFRE:
@@ -301,32 +350,12 @@ void reconnaitre_lexeme() {
                   avancer_car ();
                   break ;
 
-               // case POINT: 
-               //    ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
-               //    etat = E_FLOTTANT;
-               //    avancer_car();
-               //    break;
-
                default:
                   etat = E_FIN;
                   break;
             }
             break;
 
-         // case E_FLOTTANT: 
-         //    switch(nature_caractere(caractere_courant())){
-         //       case CHIFFRE:
-         //          ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
-         //          lexeme_en_cours.val = lexeme_en_cours.val + ((float) (caractere_courant() - '0'))/((float)(cpt_float));
-         //          cpt_float*=10;
-         //          avancer_car ();
-         //          break ;
-               
-         //       default:
-         //          etat = E_FIN;
-         //          break;
-         //    } 
-         //    break;
 
          case E_CHAINE:  // reconnaissance d'un nombre
             switch(nature_caractere(caractere_courant())) {
@@ -430,6 +459,7 @@ int est_symbole(char c)  {
       case '=':
       case '<':
       case '>':
+      case '!':  
       case '(':
       case ')':
       case '"':
@@ -459,6 +489,9 @@ switch (nature) {
    case TABLE: return "TABLE" ;
    case TEXT: return "TEXT" ;
    case INTEGER: return "INTEGER" ;  
+   case CONSTRAINT: return "CONSTRAINT" ;
+   case PRIMARY: return "PRIMARY" ;
+   case KEY: return "KEY" ;  
 
    case VAR: return "VAR" ;            
    case SEPINST: return "SEPINST" ; //Fin ; 
@@ -475,8 +508,11 @@ switch (nature) {
    // case EXIST: return "EXIST" ;
    case NOMBRE: return "NOMBRE" ;
    case EGAL: return "EGAL" ;
+   case DIFF: return "DIFF" ;
    case INF: return "INF" ;
    case SUP: return "SUP" ;
+   case INFEGAL: return "INFEGAL" ;
+   case SUPEGAL: return "SUPEGAL" ;
    case PLUS: return "PLUS" ;
    case MOINS: return "MOINS" ;  
    case PARO: return "PARO" ; 
@@ -486,6 +522,8 @@ switch (nature) {
    case INSERT: return "INSERT";
    case INTO: return "INTO";   
    case VALUES: return "VALUES" ;   
+   case UPDATE: return "UPDATE";   
+   case SET: return "SET" ;   
    case FIN_SEQUENCE: return "FIN_SEQUENCE" ;     
    default: return "ERREUR" ;            
 } ;

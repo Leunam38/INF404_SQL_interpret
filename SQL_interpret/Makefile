@@ -20,15 +20,19 @@ analyse_lexicale.o: lecture_caracteres.h
 
 lecture_caracteres.o: lecture_caracteres.h
 
-analyse_syntaxique.o: analyse_lexicale.h table_affectation.h table_donnes.h
+analyse_syntaxique.o: analyse_lexicale.h table_affectation.h table_donnes.h ast_construction.h ast_parcours.h
+
+ast_construction.o: type_ast.h
+
+ast_parcours.o: type_ast.h
 
 sql_main.o: table_donnes.h table_affectation.h
 
 test_lexeme: analyse_lexicale.o lecture_caracteres.o
 
-sql_main: table_donnes.o table_affectation.o
+sql_main: table_donnes.o table_affectation.o ast_construction.o ast_parcours.o ast_construction.o ast_parcours.o
 
-test_syntaxique: analyse_lexicale.o analyse_syntaxique.o table_affectation.o lecture_caracteres.o table_donnes.o 
+test_syntaxique: analyse_lexicale.o analyse_syntaxique.o table_affectation.o lecture_caracteres.o table_donnes.o ast_construction.o ast_parcours.o
 
 
 

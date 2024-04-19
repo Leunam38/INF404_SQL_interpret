@@ -3,19 +3,29 @@
 #include <stdlib.h>
 #include "table_donnes.h"
 #include "type_table_donnes.h"
+#include "type_ast.h"
+#include "ast_construction.h"
+#include "ast_parcours.h"
 
 int TAILLE_MAX_STRING=40;
 int TAILLE_MAX_ENTIER=10;
 
 //Initialisation d'une colonne d'entier
-cel_colonne_tete_t* init_colonne_tete(char* nom,int pos,Type_donnees type_don){
+cel_colonne_tete_t* init_colonne_tete(){
     cel_colonne_tete_t *cel_col = (cel_colonne_tete_t*)malloc(sizeof(cel_colonne_tete_t));
-    cel_col->pos=pos;
-    cel_col->type_don=type_don;
-    cel_col->nom_col=strdup(nom);//Récupère le nom et l'alloue en mémoire
+    cel_col->pos=-1;
+    cel_col->type_don=RIEN;
+    cel_col->nom_col=NULL;//Récupère le nom et l'alloue en mémoire
     cel_col->suiv=NULL;
     return cel_col;
 }
+
+void remplissage_colonne_tete(cel_colonne_tete_t* cel_col, char* nom,int pos,Type_donnees type_don){
+    cel_col->pos=pos;
+    cel_col->type_don=type_don;
+    cel_col->nom_col=strdup(nom);//Récupère le nom et l'alloue en mémoire
+}
+
 
 void lib_cel_colonne_tete (cel_colonne_tete_t* cel_col){
 
@@ -74,12 +84,30 @@ void lib_list_ligne(list_ligne_t* list_lig){
     }
 }
 
-table_t* init_table(char* nom,int nb_arg,cel_colonne_tete_t *tete_col){
+//Initialisation 
+affectation_cel_t* init_affectation_cel(){
+    affectation_cel_t *aff_cel = (affectation_cel_t*)malloc(sizeof(affectation_cel_t));
+    aff_cel->arbre=NULL;
+    aff_cel->num_att_aff=-1;
+    aff_cel->chaine_aff=NULL;
+    aff_cel->suiv=NULL;
+    return aff_cel;
+}
+
+table_t* init_table(){
     table_t *table = (table_t*)malloc(sizeof(table_t));
+    table->nb_arg=0;
+    table->nom_table=NULL;//Récupère le nom et l'alloue en mémoire
+    table->tete_col=NULL;
+    table->tete_ligne=NULL;
+    table->pk=NULL;
+    return table;
+}
+
+void remplissage_table(table_t* table, char* nom,int nb_arg,cel_colonne_tete_t *tete_col){
     table->nb_arg=nb_arg;
     table->nom_table=strdup(nom);//Récupère le nom et l'alloue en mémoire
     table->tete_col=tete_col;
-    return table;
 }
 
 void lib_table(table_t* table){
@@ -92,7 +120,6 @@ void lib_table(table_t* table){
 char *type_don_vers_Chaine (Type_donnees type) {
 	switch (type) {
         case ENTIER: return "ENTIER" ;
-        case DATE: return "DATE" ;
         case STRING: return "STRING" ;            
         case RIEN: return "RIEN" ;    
       default: return "ERREUR" ;            
@@ -131,7 +158,7 @@ void afficher_donnee_cel(donnee_cel_t* cel_don){
 
 //Affiche brutement les données d'entier
 void afficher_table(table_t* table){
-    printf("nom de la table:%s,nombre argu:%d\n",table->nom_table,table->nb_arg);
+    printf("nom de la table:%s,nombre argu:%d\n:%s:\n",table->nom_table,table->nb_arg,table->pk);
     afficher_colonne_tete(table->tete_col);
     list_ligne_t *ligne=table->tete_ligne;
     while (ligne!=NULL){
