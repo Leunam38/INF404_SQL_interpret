@@ -1,0 +1,5 @@
+CREATE TABLE Faune(
+    taille_faune INTEGER,
+);
+
+INSERT INTO Faune VALUES (200);

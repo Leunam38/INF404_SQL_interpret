@@ -1,0 +1,9 @@
+CREATE TABLE Faune(
+    nom_faune TEXT,
+    taille_faune INTEGER,
+    couleur_faune TEXT,
+    age_faune INTEGER,
+    est_protege_faune TEXT
+);
+
+INSERT INTO Flore VALUES ('sanglier',5,'vert',3,'non');

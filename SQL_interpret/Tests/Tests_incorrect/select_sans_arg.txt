@@ -1,0 +1,18 @@
+CREATE TABLE Faune(
+    nom_faune TEXT,
+    taille_faune INTEGER,
+    couleur_faune TEXT,
+    age_faune INTEGER,
+    est_protege_faune TEXT
+);
+
+INSERT INTO Faune VALUES ('sanglier',200,'marron',5,'oui');
+INSERT INTO Faune VALUES ('renard',123,'orange',4,'non');
+INSERT INTO Faune VALUES ('Pourse',1280,'marron',560,'non');
+INSERT INTO Faune VALUES ('capybara',152,'marron',23,'oui');
+INSERT INTO Faune VALUES ('licorne',485,'blanc',1000,'oui');
+INSERT INTO Faune VALUES ('phoenix',1500,'orange',100007,'oui');
+INSERT INTO Faune VALUES ('Cheshire',1200,'noir',212,'non');
+INSERT INTO Faune VALUES ('pikachu',82,jaune',3,'non');
+
+SELECT FROM Faune;
