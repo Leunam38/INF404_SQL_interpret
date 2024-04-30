@@ -6,4 +6,4 @@ CREATE TABLE Faune(
     est_protege_faune TEXT
 );
 
-INSERT INTO VALUES ('sanglier',5,'vert',3,'non');
+INSERT INTO VALUES ("sanglier",5,"vert",3,"non");
