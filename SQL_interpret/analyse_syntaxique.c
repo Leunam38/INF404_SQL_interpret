@@ -167,7 +167,7 @@ table_t* requete_select(table_t* relation, cel_colonne_tete_t* attributs, int nb
     }
     
 
-    afficher_table_final(affichage);
+    //afficher_table_final(affichage);
     return affichage;
 }
 
@@ -261,7 +261,7 @@ void rec_deb_select(table_aff_t* table_aff){
    }
    table_t* relation = search_table_aff(table_aff, LC.chaine);
    printf("Table trouvé dans requete: \n");
-   afficher_table_final(relation);
+   //afficher_table_final(relation);
    avancer();
    LC=lexeme_courant();
    Lexeme tab_where[3]; // [OPERATEUR / val = 0 si pas de WHERE val = 1 si WHERE, colonne, valeur]
@@ -507,7 +507,7 @@ void debut_insert(table_aff_t* table_aff){
         erreur();
     }
     avancer();
-    afficher_table_final(table);
+    //afficher_table_final(table);
 }
 
 
@@ -552,7 +552,7 @@ void rec_create(table_aff_t* table_aff){
     avancer();
     printf("arbre %d\n",n);
     remplissage_table(table,nomtable,n,colonnes);
-    afficher_table(table);
+    //afficher_table(table);
     ajout_table_aff(table_aff,table);
 }
 
@@ -865,7 +865,7 @@ void rec_affecation_suite(table_t* table,affectation_cel_t* aff_cel){
         Ast A;
         rec_eag(&A,table);
 
-        afficherA (A);
+        //afficherA (A);
         aff_cel->arbre=A;
     }
 }
@@ -894,7 +894,7 @@ void rec_update(table_aff_t* table_aff){
     }
     avancer();
     table_t* table = search_table_aff(table_aff, LC.chaine);
-    afficher_table_final(table);
+    //afficher_table_final(table);
     LC=lexeme_courant();
     if (LC.nature!=SET){
         erreur();
@@ -928,7 +928,7 @@ void rec_update(table_aff_t* table_aff){
             break;
     }
     requete_update(table, aff_cel, tab_where);
-    afficher_table_final(table);
+    //afficher_table_final(table);
 }
 
 void requete_update(table_t* relation, affectation_cel_t* aff_cel, Lexeme tab_where[3]){
