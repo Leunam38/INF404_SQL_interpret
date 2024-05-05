@@ -15,4 +15,6 @@ INSERT INTO Faune VALUES ("phoenix",1500,"orange",100007,"oui");
 INSERT INTO Faune VALUES ("Cheshire",1200,"noir",212,"non");
 INSERT INTO Faune VALUES ("pikachu",82,"jaune",3,"non");
 
-SELECT FROM Faune;
+UPDATE Faune 
+SET nom_faune="Jaguare des montagnes",age_faune=age_faune*9
+WHERE est_protege_faune="non";

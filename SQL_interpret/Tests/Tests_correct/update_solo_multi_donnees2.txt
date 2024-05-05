@@ -15,4 +15,6 @@ INSERT INTO Faune VALUES ("phoenix",1500,"orange",100007,"oui");
 INSERT INTO Faune VALUES ("Cheshire",1200,"noir",212,"non");
 INSERT INTO Faune VALUES ("pikachu",82,"jaune",3,"non");
 
-SELECT FROM Faune;
+UPDATE Faune 
+SET taille_faune=11111, couleur_faune="dore"
+WHERE nom_faune="phoenix";

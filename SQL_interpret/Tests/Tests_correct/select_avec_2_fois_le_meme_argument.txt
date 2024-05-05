@@ -15,4 +15,4 @@ INSERT INTO Faune VALUES ("phoenix",1500,"orange",100007,"oui");
 INSERT INTO Faune VALUES ("Cheshire",1200,"noir",212,"non");
 INSERT INTO Faune VALUES ("pikachu",82,"jaune",3,"non");
 
-SELECT FROM Faune;
+SELECT nom_faune,nom_faune FROM Faune;

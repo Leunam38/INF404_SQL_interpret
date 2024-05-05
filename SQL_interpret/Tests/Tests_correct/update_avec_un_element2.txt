@@ -1,0 +1,10 @@
+CREATE TABLE Faune(
+    taille_faune INTEGER
+);
+
+INSERT INTO Faune VALUES (200);
+
+UPDATE Faune 
+SET taille_faune=123466;
+
+SELECT * FROM Faune;

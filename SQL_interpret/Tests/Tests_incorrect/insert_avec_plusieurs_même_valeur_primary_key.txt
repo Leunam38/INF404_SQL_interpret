@@ -1,0 +1,11 @@
+CREATE TABLE Faune(
+    nom_faune TEXT,
+    taille_faune INTEGER,
+    couleur_faune TEXT,
+    age_faune INTEGER,
+    est_protege_faune TEXT,
+    CONSTRAINT pk_nom_faune PRIMARY KEY (nom_faune)
+);
+
+INSERT INTO Faune VALUES ("sanglier",200,"marron",5,"oui");
+INSERT INTO Faune VALUES ("sanglier",444,"brun",7,"non");
