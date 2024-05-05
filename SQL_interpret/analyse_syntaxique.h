@@ -68,7 +68,7 @@ TypeOperateur Operateur(Nature_Lexeme nature);
 
 
 
-void analyser(char *fichier);
+void analyser(char *fichier,table_aff_t* tab_aff);
 // -- e.i : indifferent
 // -- e.f : une Requete a ete lue dans fichier
 // -- si elle contient une erreur, le programme 

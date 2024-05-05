@@ -1,1 +1,5 @@
-INSERT INTO apagnan VALUES ("eff117 quoicoubeh",75,"aga-gougou");
+
+SELECT * FROM Quoi;
+SELECT * FROM Restaurant;
+SELECT * FROM Poney;
+SELECT * FROM Cia;

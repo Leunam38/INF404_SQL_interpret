@@ -43,23 +43,21 @@ void rec_seq_attribut(cel_colonne_tete_t* attributs, int* nb_attributs, int* a_e
     Lexeme LC=lexeme_courant();
     switch (LC.nature){
         case ETOILE:
+        case VAR :   
             *nb_attributs += 1;
             cel_colonne_tete_t* attributs_suite=init_colonne_tete();
-            remplissage_colonne_tete(attributs_suite,LC.chaine,0,ALL);
+            if (LC.nature==ETOILE){
+                remplissage_colonne_tete(attributs_suite,LC.chaine,0,ALL);
+                *a_etoile=1;
+            }
+            else {                
+                remplissage_colonne_tete(attributs_suite,LC.chaine,0,RIEN);
+            }
             
             attributs->suiv = attributs_suite;    
             
             avancer();
-            *a_etoile=1;
-            break;
-        case VAR :   
-            *nb_attributs += 1;
-            cel_colonne_tete_t* attributs_suite2=init_colonne_tete();
-            remplissage_colonne_tete(attributs_suite2,LC.chaine,0,RIEN);
-            
-            attributs->suiv = attributs_suite2; 
-            avancer();
-            rec_suite_seq_attribut(attributs_suite2, nb_attributs,a_etoile);
+            rec_suite_seq_attribut(attributs_suite, nb_attributs,a_etoile);
             break;
         default :
             erreur();
@@ -262,7 +260,7 @@ void rec_deb_select(table_aff_t* table_aff){
         developpe_etoile (relation, attributs,&nb_attributs);
    }
 //    printf("Table trouvé dans requete: \n");
-   //afficher_table_final(relation);
+    // afficher_table_final(relation);
    avancer();
    LC=lexeme_courant();
    Lexeme tab_where[3]; // [OPERATEUR / val = 0 si pas de WHERE val = 1 si WHERE, colonne, valeur]
@@ -1094,33 +1092,33 @@ int evaluation_update(Ast expr,list_ligne_t* lst_lig) {
 }
 
 
-void analyser(char *fichier) {
-    cel_colonne_tete_t* col_tete=init_colonne_tete();
-    remplissage_colonne_tete(col_tete,"col1",0,ENTIER);
+void analyser(char *fichier,table_aff_t* tab_aff) {
+    // cel_colonne_tete_t* col_tete=init_colonne_tete();
+    // remplissage_colonne_tete(col_tete,"col1",0,ENTIER);
     
-    col_tete->suiv=init_colonne_tete();
-    remplissage_colonne_tete(col_tete->suiv,"col2",1,STRING);
+    // col_tete->suiv=init_colonne_tete();
+    // remplissage_colonne_tete(col_tete->suiv,"col2",1,STRING);
 
     
-    col_tete->suiv->suiv=init_colonne_tete();
-    remplissage_colonne_tete(col_tete->suiv->suiv,"col3",2,ENTIER);
+    // col_tete->suiv->suiv=init_colonne_tete();
+    // remplissage_colonne_tete(col_tete->suiv->suiv,"col3",2,ENTIER);
     
     
-    table_t* table=init_table();
-    remplissage_table(table,"table",3,col_tete);
-    list_ligne_t* list_lig=init_list_ligne();
-    list_ligne_t* list_suiv=init_list_ligne();
-    ajout_entier_cellule(list_lig,69691111);
-    ajout_string_cellule(list_lig,"dld,zpd");
-    ajout_entier_cellule(list_lig,1);
-    ajout_entier_cellule(list_suiv,111);
-    ajout_string_cellule(list_suiv,"ARABE");
-    ajout_entier_cellule(list_suiv,112);
-    ajouter_liste_ligne(table, list_lig);
-    ajouter_liste_ligne(table, list_suiv);
+    // table_t* table=init_table();
+    // remplissage_table(table,"table",3,col_tete);
+    // list_ligne_t* list_lig=init_list_ligne();
+    // list_ligne_t* list_suiv=init_list_ligne();
+    // ajout_entier_cellule(list_lig,69691111);
+    // ajout_string_cellule(list_lig,"dld,zpd");
+    // ajout_entier_cellule(list_lig,1);
+    // ajout_entier_cellule(list_suiv,111);
+    // ajout_string_cellule(list_suiv,"ARABE");
+    // ajout_entier_cellule(list_suiv,112);
+    // ajouter_liste_ligne(table, list_lig);
+    // ajouter_liste_ligne(table, list_suiv);
 
-   table_aff_t* tab_aff= init_table_aff();
-   ajout_table_aff(tab_aff,table);
+//    table_aff_t* tab_aff= init_table_aff();
+//    ajout_table_aff(tab_aff);
 
    demarrer(fichier);
    while (! fin_de_sequence()){
