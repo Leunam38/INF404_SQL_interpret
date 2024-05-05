@@ -1,6 +1,5 @@
 CREATE TABLE Faune(
     nom_faune TEXT
 );
-
 INSERT INTO Faune VALUES ("sanglier");
 UPDATE Faune SET nom_faune="Chevaucheur cochon" ;

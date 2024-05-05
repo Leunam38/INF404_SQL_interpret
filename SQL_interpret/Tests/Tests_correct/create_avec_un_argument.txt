@@ -1,3 +1,1 @@
-CREATE TABLE Flore(
-    nom_fleur TEXT
-);
+CREATE TABLE Flore(nom_fleur TEXT);

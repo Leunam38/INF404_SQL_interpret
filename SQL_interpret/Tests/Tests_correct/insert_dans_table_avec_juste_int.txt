@@ -1,9 +1,5 @@
 CREATE TABLE Faune(
-    id_faune INTEGER,
-    taille_faune INTEGER,
-    code_rgb_faune INTEGER,
-    age_faune INTEGER,
-    est_protege_faune INTEGER
-);
+    id_faune INTEGER, taille_faune INTEGER,code_rgb_faune INTEGER,
+    age_faune INTEGER, est_protege_faune INTEGER);
 
 INSERT INTO Faune VALUES (12864,182,189,7,0);

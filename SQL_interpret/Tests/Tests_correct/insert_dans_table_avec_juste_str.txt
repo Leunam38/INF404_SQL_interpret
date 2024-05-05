@@ -1,9 +1,5 @@
 CREATE TABLE Faune(
-    nom_faune TEXT,
-    taille_faune TEXT,
-    couleur_faune TEXT,
-    age_faune TEXT,
-    est_protege_faune TEXT
-);
+    nom_faune TEXT, taille_faune TEXT, couleur_faune TEXT,
+    age_faune TEXT,est_protege_faune TEXT);
 
 INSERT INTO Faune VALUES ("sanglier","deux metres","marron","5 ans","oui");

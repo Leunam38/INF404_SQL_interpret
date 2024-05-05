@@ -1,0 +1,4 @@
+CREATE TABLE Faune( nom_faune TEXT,
+    CONSTRAINT pk_nom_faune PRIMARY KEY (nom_faune)
+);
+UPDATE Faune SET nom_faune="yeti des montagnes";

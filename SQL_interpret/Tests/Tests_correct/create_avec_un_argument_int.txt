@@ -1,3 +1,1 @@
-CREATE TABLE parcours(
-    id_parcours INTEGER
-);
+CREATE TABLE parcours( id_parcours INTEGER);

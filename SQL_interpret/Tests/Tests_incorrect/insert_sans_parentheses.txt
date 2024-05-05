@@ -5,5 +5,4 @@ CREATE TABLE Faune(
     age_faune INTEGER,
     est_protege_faune TEXT
 );
-
 INSERT INTO Faune VALUES "sanglier",5,"vert",3,"non";
