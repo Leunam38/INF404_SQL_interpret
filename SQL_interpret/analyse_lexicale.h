@@ -20,6 +20,7 @@
         VIR,         //virgule
         PNT_VIR,    //point virgule
         TIRET,    //tiret (du 6 ou du 8)
+        GUILLEMET, 
         SYMBOLE,	// symbole,
         LETTRE,
         C_FIN_SEQUENCE   // caractere de fin de sequence     
@@ -29,7 +30,7 @@
       CREATE,
       TABLE,
       TEXT,
-      INTEGER,
+      INTEGER, //entier
       CONSTRAINT,
       PRIMARY,
       KEY,
@@ -40,21 +41,21 @@
       WHERE,
       DISTINCT,
       AS,
-      VIRGULE,
-      POINT,
-      ETOILE,
-      SUP,
-      INF,
-      INFEGAL,
-      SUPEGAL,
-      DIFF,
-      EGAL,
-      PLUS,
-      MOINS,
-      PARO,
-      PARF,
-      GUILLEMETS,
-      NOMBRE,
+      VIRGULE, //,
+      POINT,   //.
+      ETOILE,  //*
+      SUP,     //<
+      INF,     //>
+      INFEGAL, //>=
+      SUPEGAL, //<=
+      DIFF,    //!=
+      EGAL,    //=
+      PLUS,    //+
+      MOINS,   //-
+      PARO,    //(
+      PARF,    //)
+      STR, //"nom"
+      NOMBRE, 
       CHAINE,
       INSERT,
       INTO,
@@ -115,6 +116,8 @@
    int est_separateur(char c ) ; //determine les separateur dans une chaine, comme un espace
    int est_chiffre(char c ) ; //determine si un caractere est entre 0 et 9
    int est_point(char c) ; //determine si on a un point pour les nb flottants
+   
+   int est_guillemet(char c); //determine si on a un guillemet
    int est_symbole(char c ) ; //determine si on a un symbole operatoire
    void reconnaitre_lexeme(); //reconnait le mmot pour l'automate
    char *Nature_vers_Chaine (Nature_Lexeme nature) ; 

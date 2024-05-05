@@ -43,7 +43,6 @@ table_t* search_table_aff(table_aff_t* tab_aff, char* nom_tab_aff){
         }
         cel_aff=cel_aff->suiv;
     }
-    printf("Table non trouvé");
     return NULL;
 }
 

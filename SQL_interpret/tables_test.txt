@@ -1,0 +1,45 @@
+CREATE TABLE Quoi (
+    feur TEXT,
+    apagnan INTEGER,
+    coubeh TEXT,
+    CONSTRAINT pk_feur PRIMARY KEY (feur)
+);
+
+CREATE TABLE Restaurant (
+    resto TEXT,
+    capitalnet INTEGER,
+    adresse TEXT
+    CONSTRAINT pk_resto PRIMARY KEY (resto)
+);
+
+CREATE TABLE Poney (
+    nom TEXT,
+    age INTEGER,
+    typemagie TEXT,
+    adresse TEXT,
+    CONSTRAINT pk_typemagie PRIMARY KEY (typemagie)
+);
+
+CREATE TABLE Cia (
+    id_agent INTEGER,
+    nom_agent TEXT,
+    prenom_agent TEXT,
+    age_agent TEXT,
+    adresse_agent TEXT,
+    CONSTRAINT pk_id PRIMARY KEY (id_agent)
+);
+
+INSERT INTO Quoi VALUES ("oui",4,"exactement");
+INSERT INTO Quoi VALUES ("non",3,"peut-etre");
+
+INSERT INTO Restaurant VALUES ("A_la_table",204860,"50 place de Rome");
+INSERT INTO Restaurant VALUES ("Wok_bar",119911,"11 place des deux tours");
+INSERT INTO Restaurant VALUES ("Pastaga_de_dede",515151,"51 place de l'apero");
+
+INSERT INTO Poney VALUES ("Twilight_Sparkle",18,"amitie","12 place centrale, Poneyville");
+INSERT INTO Poney VALUES ("Flutter_Shy",19,"animaux","1 bois de l'oubli");
+INSERT INTO Poney VALUES ("Rainbow_Dash",15,"arc-en-ciel","4eme nuage, Skypea");
+
+INSERT INTO Cia VALUES (1,"Sparrow","Jack",39,"1 place du black pearl");
+INSERT INTO Cia VALUES (2,"Vador","Dark",28,"4 rue des sith, Etoile de la mort");
+INSERT INTO Cia VALUES (3,"Leblanc","Gandalf",720,"45 cabane du sage, La contee");

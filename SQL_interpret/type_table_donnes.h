@@ -6,13 +6,12 @@
 #include "ast_parcours.h"
 
 //Type énuméré pour savoir quel type de donnée on stock dans notre colonne
-typedef enum {ENTIER,STRING,RIEN} Type_donnees ;
+typedef enum {ENTIER,STRING,ALL,RIEN} Type_donnees ;
 
 struct donnee_cel {
     Type_donnees type_don; //Le type de la cellule actuelle
     int val;
     char* string;
-    //Rajouter ici date?
     struct donnee_cel *suiv; //La donnée suivante de la ligne
 };
 typedef struct donnee_cel donnee_cel_t;
@@ -29,7 +28,6 @@ struct cel_colonne_tete{
     Type_donnees type_don; //Le type de la cellule actuelle
     int pos; // ordre pour de où ils sont par rapport à la table
     char* nom_col;
-    //Rajouter ici date?
     struct cel_colonne_tete *suiv; //La donnée suivante de la ligne
 };
 typedef struct cel_colonne_tete cel_colonne_tete_t;
@@ -39,7 +37,7 @@ struct table
 {   
     char* nom_table; //Nom de la table
     int nb_arg; //Nombre d'argument
-    char* pk;
+    int primarykey;
     cel_colonne_tete_t * tete_col; //Vers la liste des colonnes
     list_ligne_t *tete_ligne; //Tête de la liste de lignes qui constitue la table
     list_ligne_t *queue_ligne; //Queue de la liste de lignes qui constitue la table

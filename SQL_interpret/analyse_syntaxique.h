@@ -14,26 +14,29 @@
 #include "ast_parcours.h"
 
 void erreur();
+void erreur_table_aff(char * nom_table);
 void rec_requete(table_aff_t* tab_aff);
 
 table_t* requete_select(table_t* relation, cel_colonne_tete_t* attributs, int nb_attributs, Lexeme tab_where[3]);
 void erreur();
 void rec_requete(table_aff_t* tab_aff);
-void rec_seq_attribut(cel_colonne_tete_t* col_tete, int* nb_attributs);
-void rec_suite_seq_attribut(cel_colonne_tete_t* col_tete, int* nb_attributs);
+void rec_seq_attribut(cel_colonne_tete_t* col_tete, int* nb_attributs, int* a_etoile);
+void rec_suite_seq_attribut(cel_colonne_tete_t* col_tete, int* nb_attributs, int* a_etoile);
+void developpe_etoile (table_t* table, cel_colonne_tete_t* attributs, int* nb_attributs);
 void rec_condition();
 
+int search_unique_key(table_t* table, char* nom_string,int nb_ent);
 
 void rec_create(table_aff_t* table_aff);
 void rec_seq_creation_attribut(table_t* table, cel_colonne_tete_t* colonnes, int* n);
-void rec_creation_attribut(cel_colonne_tete_t* colonnes,int* n);
+void rec_creation_attribut(table_t* table,cel_colonne_tete_t* colonnes,int* n);
 void rec_type(cel_colonne_tete_t* colonnes);
 void rec_seq_suite_cree_attribut(table_t* table,cel_colonne_tete_t* colonnes,int* n);
 void rec_contrainte(table_t* table, cel_colonne_tete_t* colonnes);
 
-void rec_values(list_ligne_t* ligne,cel_colonne_tete_t* cel_col);
+void rec_values(list_ligne_t* ligne,cel_colonne_tete_t* cel_col,int* position,table_t* table);
 
-cel_colonne_tete_t* rec_seq_suite_values(list_ligne_t* ligne,cel_colonne_tete_t* cel_col);
+cel_colonne_tete_t* rec_seq_suite_values(list_ligne_t* ligne,cel_colonne_tete_t* cel_col,int* position,table_t* table);
 
 void Rec_seq_values(table_t* table);
 

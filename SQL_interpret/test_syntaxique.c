@@ -9,7 +9,8 @@ int main (int argc, char *argv[]){
         printf("Nombre d'arguments incorrects!");
         exit(1);
     }
-    analyser(argv[1]);
+    // analyser("tables_test.txt"); //bdd par defaut
+    analyser(argv[1]); //bdd d'autres fichirs
     arreter();
     return 0;
 }

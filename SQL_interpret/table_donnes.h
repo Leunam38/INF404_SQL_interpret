@@ -46,7 +46,7 @@ void affichage_table_aff(table_aff_t* tab_aff);
 
 void afficher_colonne_tete_final(cel_colonne_tete_t* cel_col);
 void afficher_tiret_tete_final(cel_colonne_tete_t* cel_col);
-void afficher_ligne_final(list_ligne_t* ligne);
+void afficher_ligne_final(list_ligne_t* ligne, cel_colonne_tete_t* cel_col);
 void ajouter_liste_ligne(table_t* table, list_ligne_t* ligne);
 void afficher_table_final(table_t* table);
 

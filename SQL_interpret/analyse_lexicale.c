@@ -73,19 +73,20 @@
    /* --------------------------------------------------------------------- */
 
    void tranfo_chaine_nature() {
-      if (strcmp(lexeme_en_cours.chaine,"CREATE")==0 || strcmp(lexeme_en_cours.chaine,"create")==0 ){
+      /*transfrome une chaine de caracteres en une nature*/
+      if (strcmp(lexeme_en_cours.chaine,"CREATE")==0 || strcmp(lexeme_en_cours.chaine,"create")==0 ){ //on transforme la chaine create en nature si elle y est dans le fichier
          lexeme_en_cours.nature=CREATE;
          return;
       }
-      if (strcmp(lexeme_en_cours.chaine,"TABLE")==0){
+      if (strcmp(lexeme_en_cours.chaine,"TABLE")==0){ //on transforme la chaine table en nature si elle y est dans le fichier
          lexeme_en_cours.nature=TABLE;
          return;
       }
-      if (strcmp(lexeme_en_cours.chaine,"INTEGER")==0 || strcmp(lexeme_en_cours.chaine,"integer")==0){
+      if (strcmp(lexeme_en_cours.chaine,"INTEGER")==0 || strcmp(lexeme_en_cours.chaine,"integer")==0){ //on transforme la chaine integer en nature si elle y est dans le fichier
          lexeme_en_cours.nature=INTEGER;
          return;
       }
-      if (strcmp(lexeme_en_cours.chaine,"TEXT")==0 || strcmp(lexeme_en_cours.chaine,"text")==0){
+      if (strcmp(lexeme_en_cours.chaine,"TEXT")==0 || strcmp(lexeme_en_cours.chaine,"text")==0){ //meme commentaire pour le reste
          lexeme_en_cours.nature=TEXT;
          return;
       }
@@ -153,7 +154,7 @@
       }
       
       
-      lexeme_en_cours.nature=VAR;
+      lexeme_en_cours.nature=VAR; // si on a aucun mot "reconnu" alors c'est une variable
       return;
    }
 
@@ -168,7 +169,8 @@
    //		soit un separateur,  soit le 1er caractere d'un lexeme
 
 void reconnaitre_lexeme() {
-   typedef enum {E_INIT, E_NOMBRE, E_CHAINE, E_SUP, E_INF,E_FIN} Etat_Automate ;
+   /*represente l'automate de notre lexeme, autrement dit si il n'y a pas d'erreur de lexeme*/
+   typedef enum {E_INIT, E_NOMBRE, E_CHAINE, E_STRING, E_SUP, E_INF,E_FIN} Etat_Automate ; //type de l'automate
    Etat_Automate etat=E_INIT;
 
    // on commence par lire et ignorer les separateurs
@@ -240,6 +242,7 @@ void reconnaitre_lexeme() {
                   lexeme_en_cours.ligne = numero_ligne();
                   lexeme_en_cours.colonne = numero_colonne();
                   ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
+                  //type de symbole
                   switch (caractere_courant()) {
                      case '+':
                         lexeme_en_cours.nature = PLUS;
@@ -292,17 +295,19 @@ void reconnaitre_lexeme() {
                         etat = E_FIN;
                         break;
 
-                     case '"':
-                        lexeme_en_cours.nature = GUILLEMETS;
-                        etat = E_FIN;
-                        break;
-
                      default:
                         printf("Erreur_Lexicale") ;
                         exit(0) ;
                         break;
                   }
 
+                  avancer_car() ;
+                  break;
+
+               //Si c'est un guillemet
+               case GUILLEMET:                  
+                  lexeme_en_cours.nature = STR;
+                  etat = E_STRING;
                   avancer_car() ;
                   break;
 
@@ -323,7 +328,7 @@ void reconnaitre_lexeme() {
             } 
 		      break;
 
-         case E_INF:  // reconnaissance d'un nombre
+         case E_INF:  // reconnaissance d'un INF EGAL
             if (caractere_courant()=='='){
                lexeme_en_cours.nature = INFEGAL;
                ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
@@ -332,7 +337,7 @@ void reconnaitre_lexeme() {
             etat = E_FIN;
             break;
             
-         case E_SUP:  // reconnaissance d'un nombre
+         case E_SUP:  // reconnaissance d'un SUP EGAL
             if (caractere_courant()=='='){
                lexeme_en_cours.nature = SUPEGAL;
                ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
@@ -357,7 +362,7 @@ void reconnaitre_lexeme() {
             break;
 
 
-         case E_CHAINE:  // reconnaissance d'un nombre
+         case E_CHAINE:  // reconnaissance d'une chaine
             switch(nature_caractere(caractere_courant())) {
                case TIRET:
                case LETTRE:
@@ -376,8 +381,19 @@ void reconnaitre_lexeme() {
             }
             break;
 
+         case E_STRING:  // reconnaissance d'un nombre
+            if (est_guillemet(caractere_courant())){
+               avancer_car() ;
+               etat = E_FIN;
+            }
+            else {
+               ajouter_caractere (lexeme_en_cours.chaine, caractere_courant()) ;
+               avancer_car ();
+            }
+            break;
+
          case E_FIN:  // etat final
-         break ;
+            break ;
 	    
 	   } // fin du switch(etat)
 	} // fin du while (etat != fin)
@@ -411,6 +427,7 @@ Nature_Caractere nature_caractere (char c) {
    if (fin_de_sequence_car(c)) return C_FIN_SEQUENCE;
    if (est_chiffre(c)) return CHIFFRE;
    if (est_point(c)) return PNT;
+   if (est_guillemet(c)) return GUILLEMET;
    if (est_vir(c)) return VIR;
    if (est_pnt_vir(c)) return PNT_VIR;
    if (est_tiret(c)) return TIRET;
@@ -434,6 +451,9 @@ int est_chiffre(char c) {
 
 int est_point(char c) {
    return c=='.';
+}
+int est_guillemet(char c) {
+   return c=='"';
 }
 
 int est_vir(char c) {
@@ -517,7 +537,7 @@ switch (nature) {
    case MOINS: return "MOINS" ;  
    case PARO: return "PARO" ; 
    case PARF: return "PARF";  
-   case GUILLEMETS: return "GUILLEMETS";
+   case STR: return "STR";
    case CHAINE: return "CHAINE";   
    case INSERT: return "INSERT";
    case INTO: return "INTO";   

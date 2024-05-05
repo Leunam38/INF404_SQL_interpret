@@ -20,10 +20,10 @@ int main(int argc, char ** argv){
     attributs->suiv->suiv = init_colonne_tete("col3", 2, STRING);
     table_t* table = init_table("table", 3, attributs);
     afficher_table_final(table);
-    afficher_ligne_final(list_lig);
+    // afficher_ligne_final(list_lig);
     ajouter_liste_ligne(table, list_lig);
     afficher_table_final(table);
-    afficher_ligne_final(list_lig2);
+    // afficher_ligne_final(list_lig2);
     ajouter_liste_ligne(table, list_lig2);
     afficher_table_final(table);
 
