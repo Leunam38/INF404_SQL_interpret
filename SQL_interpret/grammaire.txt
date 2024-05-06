@@ -1,0 +1,80 @@
+requete -> req_create
+requete -> req_select
+requete -> req_insert
+requete -> req_update
+
+
+req_create -> CREATE TABLE VAR(table) PARO seq_creation_attribut PARF SEPINST
+
+seq_creation_attribut -> creation_attribut seq_suite_cree_attribut 
+
+creation_attribut -> VAR(attribut) type 
+
+seq_suite_cree_attribut -> VIRGULE creation_attribut seq_suite_cree_attribut
+seq_suite_cree_attribut -> VIRGULE contrainte
+seq_suite_cree_attribut -> ε
+
+contrainte -> CONSTRAINT VAR(nom_cle) PRIMARY KEY PARO VAR(attribut) PARF
+contrainte -> CONSTRAINT VAR(nom_cle) PRIMARY KEY PARO VAR(attribut) PARF VIRGULE contrainte
+
+condition -> valeur comparateur valeur 
+condition -> valeur comparateur valeur AND condition
+condition -> valeur comparateur valeur OR condition
+
+valeur -> STR 
+valeur -> eag 
+
+eag -> seq_terme
+
+seq_terme -> terme suite_seq_terme
+
+suite_seq_terme -> op1 terme suite_seq_terme
+suite_seq_terme -> ε
+
+terme -> seq_facteur
+
+seq_facteur -> seq_facteur suite_seq_facteur
+
+suite_seq_facteur -> op2 facteur suite_seq_facteur
+suite_seq_facteur -> ε
+
+facteur -> NOMBRE
+facteur -> VAR(attribut)
+facteur -> PARO eag PARF
+
+op1 -> PLUS
+op1 -> MOINS
+
+op2 -> ETOILE
+
+
+
+req_select-> SELECT seq_attribut FROM VAR(table) SEPINST
+req_select-> SELECT seq_attribut FROM VAR(table) WHERE condition SEPINST
+
+seq_attribut -> VAR(attibut) suite_seq_attribut
+seq_attribut -> ETOILE suite_seq_attribut
+
+suite_seq_attribut -> VIRGULE seq_attribut
+suite_seq_attribut -> ε
+
+req_insert -> INSERT INTO VAR(table) VALUES PARO seq_values PARF SEPINST
+
+seq_values -> values seq_suite_values
+
+seq_suite_values -> VIRGULE values seq_suite_values
+seq_suite_values -> ε
+
+values -> STR 
+values -> NOMBRE 
+
+
+
+req_update -> UPDATE VAR(table) SET affectation SEPINST
+req_update -> UPDATE VAR(table) SET affectation WHERE condition SEPINST 
+
+affectation -> VAR(attribut) EGAL affectation_suite seq_suite_affectation
+affectation_suite -> STR 
+affectation_suite -> eag
+seq_suite_affectation -> VIRGULE affectation
+seq_suite_affectation -> ε

@@ -1,0 +1,3 @@
+UPDATE Quoi 
+SET apagnan=4;
+SELECT * FROM Quoi;

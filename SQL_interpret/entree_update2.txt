@@ -1,0 +1,3 @@
+UPDATE Poney SET typemagie="force bleu" WHERE age<20;
+
+SELECT typemagie, age, nom FROM Poney;

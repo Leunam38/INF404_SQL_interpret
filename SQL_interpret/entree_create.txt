@@ -1,0 +1,14 @@
+CREATE TABLE garde(
+    id_garde INTEGER,nom_garde TEXT,
+    taille_garde INTEGER, nationalite_garde TEXT,
+    prenom_garde TEXT,adresse TEXT,
+    lieu_de_travail TEXT,nombre_d_enfants INTEGER,
+    nom_du_chien TEXT, adresse_des_parents TEXT,
+    nombre_de_cheveux INTEGER, CONSTRAINT pk_id PRIMARY KEY (id_garde)
+);
+
+CREATE TABLE Faune(
+    nom_faune TEXT,taille_faune INTEGER,
+    couleur_faune TEXT, age_faune INTEGER,
+    est_protege_faune TEXT, CONSTRAINT pk_nom_faune PRIMARY KEY (nom_faune)
+);

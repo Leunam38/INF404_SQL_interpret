@@ -1,0 +1,65 @@
+CREATE TABLE Quoi (
+    feur TEXT,
+    apagnan INTEGER,
+    coubeh TEXT,
+    CONSTRAINT pk_feur PRIMARY KEY (feur)
+);
+
+CREATE TABLE Restaurant (
+    resto TEXT,
+    capitalnet INTEGER,
+    adresse TEXT,
+    CONSTRAINT pk_resto PRIMARY KEY (resto)
+);
+
+CREATE TABLE Poney (
+    nom TEXT,
+    age INTEGER,
+    typemagie TEXT,
+    adresse TEXT,
+    CONSTRAINT pk_typemagie PRIMARY KEY (nom)
+);
+
+CREATE TABLE Cia (
+    id_agent INTEGER,
+    nom_agent TEXT,
+    prenom_agent TEXT,
+    age_agent INTEGER,
+    adresse_agent TEXT,
+    CONSTRAINT pk_id PRIMARY KEY (id_agent)
+);
+
+INSERT INTO Quoi VALUES ("oui",4,"exactement");
+INSERT INTO Quoi VALUES ("non",3,"peut-etre");
+INSERT INTO Quoi VALUES ("peut-etre", 6, "incertain");
+INSERT INTO Quoi VALUES ("sans doute", 2, "assurement");
+INSERT INTO Quoi VALUES ("probablement", 5, "vraisemblablement");
+INSERT INTO Quoi VALUES ("absolument", 7, "sans aucun doute");
+INSERT INTO Quoi VALUES ("eventuellement", 3, "potentiellement");
+
+INSERT INTO Restaurant VALUES ("A_la_table",204860,"50 place de Rome");
+INSERT INTO Restaurant VALUES ("Wok_bar",119911,"11 place des deux tours");
+INSERT INTO Restaurant VALUES ("Pastaga_de_dede",515151,"51 place de l'apero");
+INSERT INTO Restaurant VALUES ("Chez_Louis", 157890, "12 avenue des saveurs");
+INSERT INTO Restaurant VALUES ("La_Belle_Etoile", 305670, "28 rue du bonheur");
+INSERT INTO Restaurant VALUES ("Le_Petit_Gourmet", 90000, "8 place du marche");
+INSERT INTO Restaurant VALUES ("Casa_di_Mario", 200000, "15 rue de l'amitie");
+INSERT INTO Restaurant VALUES ("Le_Pavillon", 180000, "7 boulevard des roses");
+
+INSERT INTO Poney VALUES ("Twilight_Sparkle",18,"amitie","12 place centrale, Poneyville");
+INSERT INTO Poney VALUES ("Flutter_Shy",19,"animaux","1 bois de l'oubli");
+INSERT INTO Poney VALUES ("Spike", 10, "feu", "2 rue du rire, Joyville");
+INSERT INTO Poney VALUES ("Rainbow_Dash",15,"arc-en-ciel","4eme nuage, Skypea");
+INSERT INTO Poney VALUES ("Pinkie_Pie", 20, "fete", "2 rue du rire, Joyville");
+INSERT INTO Poney VALUES ("Applejack", 22, "terre", "3 ferme des pommiers, Poneyville");
+INSERT INTO Poney VALUES ("Rarity", 17, "mode", "2 rue du rire, Joyville");
+INSERT INTO Poney VALUES ("Princesse_Celeste", 1000, "soleil", "Palais de Canterlot");
+
+INSERT INTO Cia VALUES (1,"Sparrow","Jack",39,"1 place du black pearl");
+INSERT INTO Cia VALUES (2,"Vador","Dark",28,"4 rue des sith");
+INSERT INTO Cia VALUES (3,"Leblanc","Gandalf",720,"45 cabane de la contee");
+INSERT INTO Cia VALUES (4, "Bond", "James", 45, "1 avenue de Londres");
+INSERT INTO Cia VALUES (5, "Bourne", "Jason", 40, "32 rue de New York");
+INSERT INTO Cia VALUES (6, "Hunt", "Ethan", 50, "7 boulevard de Paris");
+INSERT INTO Cia VALUES (7, "Matrix", "Neo", 35, "101 rue de Zion");
+INSERT INTO Cia VALUES (8, "Parker", "Peter", 30, "20 rue de New York");

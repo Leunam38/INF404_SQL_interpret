@@ -1,0 +1,15 @@
+CREATE TABLE Employes (
+	id_employe INTEGER,
+	nom TEXT,
+	prenom TEXT,
+	age INTEGER,
+	CONSTRAINT pk_id PRIMARY KEY (id_employe)
+);
+INSERT INTO Employes VALUES (1, "Johnson", "Sophia", 32);
+INSERT INTO Employes VALUES (2, "Martinez", "Liam", 27);
+INSERT INTO Employes VALUES (3, "Thompson", "Emily", 35);
+INSERT INTO Employes VALUES (4, "Rodriguez", "Noah", 40);
+INSERT INTO Employes VALUES (5, "Lee", "Ava", 23);
+SELECT * FROM Employes;
+UPDATE Employes SET age = 25 WHERE nom = "Lee" AND prenom = "Ava";
+SELECT nom, prenom, age FROM Employes WHERE age = 40 OR age = 25;
