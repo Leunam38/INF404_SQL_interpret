@@ -1,3 +1,0 @@
-UPDATE Quoi 
-SET feur="hmmmmm"
-WHERE apagnan=3;

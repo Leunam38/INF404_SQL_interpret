@@ -1,1 +1,0 @@
-SELECT id_agent,prenom_agent,adresse_agent FROM Cia;

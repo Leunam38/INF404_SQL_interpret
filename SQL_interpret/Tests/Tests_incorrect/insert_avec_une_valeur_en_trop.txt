@@ -1,8 +1,0 @@
-CREATE TABLE Faune(
-    nom_faune TEXT,
-    taille_faune INTEGER,
-    couleur_faune TEXT,
-    age_faune INTEGER,
-    est_protege_faune TEXT
-);
-INSERT INTO Faune VALUES ("sanglier",200,"marron",5,"oui","non");

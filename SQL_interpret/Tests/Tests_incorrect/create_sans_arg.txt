@@ -1,7 +1,0 @@
-CREATE TABLE Faune(
-    TEXT,
-    INTEGER,
-    TEXT,
-    INTEGER,
-    TEXT
-);

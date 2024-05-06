@@ -1,2 +1,0 @@
-UPDATE Cia 
-SET age_agent=123466;

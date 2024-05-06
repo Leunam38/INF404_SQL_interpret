@@ -1,5 +1,0 @@
-
-SELECT * FROM Quoi;
-SELECT * FROM Restaurant;
-SELECT * FROM Poney;
-SELECT * FROM Cia;

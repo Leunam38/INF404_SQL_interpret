@@ -1,3 +1,0 @@
-UPDATE Cia 
-SET prenom_agent="Le_Pavillon",age_agent=(age_agent*100+age_agent)*3-id_agent*1000
-WHERE nom_agent="Sparrow";

@@ -1,3 +1,0 @@
-UPDATE Poney 
-SET nom="Mario",age=age*9
-WHERE adresse="2 rue du rire, Joyville";

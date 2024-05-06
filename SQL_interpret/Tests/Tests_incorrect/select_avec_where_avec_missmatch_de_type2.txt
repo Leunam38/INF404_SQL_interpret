@@ -1,1 +1,0 @@
-SELECT * FROM Quoi WHERE apagnan = "capybara";

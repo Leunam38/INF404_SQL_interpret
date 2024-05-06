@@ -1,1 +1,0 @@
-SELECT * FROM Faune WHERE resto = "sans doute"

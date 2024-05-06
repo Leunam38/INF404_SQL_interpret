@@ -1,7 +1,0 @@
-CREATE TABLE Faune(
-    nom_faune,
-    taille_faune,
-    couleur_faune,
-    age_faune,
-    est_protege_faune
-);

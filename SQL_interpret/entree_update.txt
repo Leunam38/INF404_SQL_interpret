@@ -1,3 +1,0 @@
-UPDATE table
-SET col1 = 67 * col1+col3 , col2 = "testhangerrrr"
-WHERE col1!=2000;

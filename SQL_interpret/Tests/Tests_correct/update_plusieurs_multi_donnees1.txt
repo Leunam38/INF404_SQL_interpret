@@ -1,3 +1,0 @@
-UPDATE Poney 
-SET typemagie="Paillette",age=age*9
-WHERE adresse="2 rue du rire, Joyville";

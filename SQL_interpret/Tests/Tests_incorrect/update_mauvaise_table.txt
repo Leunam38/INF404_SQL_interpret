@@ -1,3 +1,0 @@
-UPDATE Flore 
-SET nom_agent="James"
-WHERE age_agent<500;

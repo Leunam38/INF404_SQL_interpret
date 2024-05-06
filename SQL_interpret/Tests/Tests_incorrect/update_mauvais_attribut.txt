@@ -1,3 +1,0 @@
-UPDATE Cia 
-SET nom_agent="Jaguare des montagnes",age_faune=age_faune*9
-WHERE adresse_agent="non";

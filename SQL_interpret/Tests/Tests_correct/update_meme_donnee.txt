@@ -1,3 +1,0 @@
-UPDATE Cia 
-SET nom_agent="NOM",nom_agent="NOM DE FAMILLE"
-WHERE age_agent=45;

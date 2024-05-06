@@ -1,1 +1,0 @@
-SELECT id_agent,id_agent FROM Cia;

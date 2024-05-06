@@ -1,3 +1,0 @@
-UPDATE Cia 
-SET age_agent=34, nom_agent="MR.", prenom_agent="Prince"
-WHERE id_agent<=44;

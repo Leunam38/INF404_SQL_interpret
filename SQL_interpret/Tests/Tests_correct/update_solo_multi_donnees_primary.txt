@@ -1,3 +1,0 @@
-UPDATE Restaurant 
-SET capitalnet=0, adresse="4eme nuage, Skypea"
-WHERE capitalnet<=200000;

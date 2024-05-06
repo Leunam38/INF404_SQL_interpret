@@ -1,3 +1,0 @@
-UPDATE Quoi 
-SET
-WHERE apagnan=2;

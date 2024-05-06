@@ -1,8 +1,0 @@
-convertir les noms d'attributs en rangs de la relation (cel_colonne_tete->pos)
-
-creation table temporaire pour affichage
-
-
-parcours de la liste d'attributs du SELECT, pour chaque attribut, prendre 
-la liste chainée qui correspond au rang de cet attribut dans la relation (voir paint)
-
